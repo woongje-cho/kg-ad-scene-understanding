@@ -1,0 +1,329 @@
+{
+  "meta": {
+    "description": "Enhanced 3D Scene Graph for driving environment (perception-only, no domain knowledge)",
+    "source": "Simulated LiDAR + camera + tracking pipeline output",
+    "note": "Contains ONLY information observable from sensors: geometry, appearance, motion, spatial relations. Does NOT contain semantic descriptions, traffic rules, common-sense reasoning, or ontological hierarchy."
+  },
+  "layers": {
+    "network": {
+      "id": "UrbanTown05",
+      "type": "road_network",
+      "location": [0.0, 0.0, 0.0],
+      "bounds": [310.0, 120.0, 5.0]
+    },
+    "districts": [
+      {"id": "urban_district", "type": "district", "location": [-50.0, 0.0, 0.0], "parent": "UrbanTown05"},
+      {"id": "residential_district", "type": "district", "location": [50.0, 80.0, 0.0], "parent": "UrbanTown05"},
+      {"id": "highway_district", "type": "district", "location": [150.0, 0.0, 0.0], "parent": "UrbanTown05"}
+    ],
+    "zones": [
+      {"id": "intersection_1", "type": "intersection", "location": [-80.0, 10.0, 0.0], "size": [20.0, 20.0, 5.0], "speed_limit_kmh": 50, "parent": "urban_district", "connected_zones": ["urban_road_1", "urban_road_4"]},
+      {"id": "intersection_2", "type": "intersection", "location": [-40.0, 10.0, 0.0], "size": [20.0, 20.0, 5.0], "speed_limit_kmh": 50, "parent": "urban_district", "connected_zones": ["urban_road_1", "urban_road_2", "urban_road_3", "bus_lane_1"]},
+      {"id": "intersection_3", "type": "intersection", "location": [-40.0, -30.0, 0.0], "size": [20.0, 20.0, 5.0], "speed_limit_kmh": 40, "parent": "urban_district", "connected_zones": ["urban_road_2", "side_road_1"]},
+      {"id": "intersection_4", "type": "intersection", "location": [50.0, 90.0, 0.0], "size": [20.0, 20.0, 5.0], "speed_limit_kmh": 30, "parent": "residential_district", "connected_zones": ["school_zone_1", "residential_road_1", "residential_road_2", "residential_road_3"]},
+      {"id": "urban_road_1", "type": "lane_segment", "location": [-60.0, 10.0, 0.0], "size": [30.0, 8.0, 0.0], "speed_limit_kmh": 50, "parent": "urban_district", "connected_zones": ["intersection_1", "intersection_2", "construction_zone_1"]},
+      {"id": "urban_road_2", "type": "lane_segment", "location": [-40.0, -10.0, 0.0], "size": [10.0, 30.0, 0.0], "speed_limit_kmh": 50, "parent": "urban_district", "connected_zones": ["intersection_2", "intersection_3"]},
+      {"id": "urban_road_3", "type": "lane_segment", "location": [-20.0, 10.0, 0.0], "size": [30.0, 8.0, 0.0], "speed_limit_kmh": 50, "parent": "urban_district", "connected_zones": ["intersection_2", "residential_road_1"]},
+      {"id": "urban_road_4", "type": "lane_segment", "location": [-80.0, -10.0, 0.0], "size": [20.0, 30.0, 0.0], "speed_limit_kmh": 40, "parent": "urban_district", "connected_zones": ["intersection_1", "parking_area_1"]},
+      {"id": "parking_area_1", "type": "parking_area", "location": [-70.0, -20.0, 0.0], "size": [20.0, 15.0, 0.0], "speed_limit_kmh": 15, "parent": "urban_district", "connected_zones": ["urban_road_4"]},
+      {"id": "school_zone_1", "type": "school_zone", "location": [30.0, 90.0, 0.0], "size": [40.0, 40.0, 5.0], "speed_limit_kmh": 30, "parent": "residential_district", "connected_zones": ["intersection_4"]},
+      {"id": "residential_road_1", "type": "lane_segment", "location": [50.0, 70.0, 0.0], "size": [40.0, 8.0, 0.0], "speed_limit_kmh": 40, "parent": "residential_district", "connected_zones": ["intersection_4", "urban_road_3", "highway_road_1", "wet_road_section_1"]},
+      {"id": "residential_road_2", "type": "lane_segment", "location": [60.0, 90.0, 0.0], "size": [20.0, 8.0, 0.0], "speed_limit_kmh": 40, "parent": "residential_district", "connected_zones": ["intersection_4", "parking_area_2"]},
+      {"id": "residential_road_3", "type": "lane_segment", "location": [40.0, 100.0, 0.0], "size": [20.0, 8.0, 0.0], "speed_limit_kmh": 30, "parent": "residential_district", "connected_zones": ["intersection_4"]},
+      {"id": "parking_area_2", "type": "parking_area", "location": [70.0, 85.0, 0.0], "size": [15.0, 15.0, 0.0], "speed_limit_kmh": 15, "parent": "residential_district", "connected_zones": ["residential_road_2"]},
+      {"id": "highway_section_1", "type": "highway_section", "location": [120.0, 0.0, 0.0], "size": [40.0, 12.0, 0.0], "speed_limit_kmh": 90, "parent": "highway_district", "connected_zones": ["highway_road_1", "merge_zone_1"]},
+      {"id": "highway_section_2", "type": "highway_section", "location": [160.0, 0.0, 0.0], "size": [40.0, 12.0, 0.0], "speed_limit_kmh": 90, "parent": "highway_district", "connected_zones": ["merge_zone_1", "merge_zone_2"]},
+      {"id": "highway_section_3", "type": "highway_section", "location": [200.0, 0.0, 0.0], "size": [40.0, 12.0, 0.0], "speed_limit_kmh": 100, "parent": "highway_district", "connected_zones": ["merge_zone_2", "highway_road_2"]},
+      {"id": "merge_zone_1", "type": "merge_zone", "location": [140.0, 10.0, 0.0], "size": [20.0, 15.0, 0.0], "speed_limit_kmh": 60, "parent": "highway_district", "connected_zones": ["highway_section_1", "highway_section_2"]},
+      {"id": "merge_zone_2", "type": "merge_zone", "location": [180.0, -5.0, 0.0], "size": [20.0, 10.0, 0.0], "speed_limit_kmh": 70, "parent": "highway_district", "connected_zones": ["highway_section_2", "highway_section_3"]},
+      {"id": "highway_road_1", "type": "lane_segment", "location": [100.0, 5.0, 0.0], "size": [30.0, 10.0, 0.0], "speed_limit_kmh": 80, "parent": "highway_district", "connected_zones": ["residential_road_1", "highway_section_1"]},
+      {"id": "highway_road_2", "type": "lane_segment", "location": [210.0, 0.0, 0.0], "size": [20.0, 10.0, 0.0], "speed_limit_kmh": 100, "parent": "highway_district", "connected_zones": ["highway_section_3"]},
+      {"id": "side_road_1", "type": "lane_segment", "location": [-30.0, -20.0, 0.0], "size": [15.0, 8.0, 0.0], "speed_limit_kmh": 30, "parent": "urban_district", "connected_zones": ["intersection_3"]},
+      {"id": "wet_road_section_1", "type": "lane_segment", "location": [70.0, 75.0, 0.0], "size": [15.0, 8.0, 0.0], "speed_limit_kmh": 30, "parent": "residential_district", "connected_zones": ["residential_road_1"]},
+      {"id": "construction_zone_1", "type": "lane_segment", "location": [-60.0, -15.0, 0.0], "size": [15.0, 8.0, 0.0], "speed_limit_kmh": 20, "parent": "urban_district", "connected_zones": ["urban_road_1"]},
+      {"id": "bus_lane_1", "type": "lane_segment", "location": [-50.0, 15.0, 0.0], "size": [20.0, 4.0, 0.0], "speed_limit_kmh": 50, "parent": "urban_district", "connected_zones": ["intersection_2"]}
+    ]
+  },
+  "objects": [
+    {
+      "id": "ego_car", "class": "ego_vehicle", "location": [-85.0, 10.0, 0.5],
+      "attributes": {"speed_kmh": 55, "state": "moving", "orientation": "east", "size": [4.8, 1.9, 1.5], "color": "dark_grey", "vehicle_type": "sedan", "lights": "headlights_on"},
+      "in_zone": "urban_road_4"
+    },
+    {
+      "id": "sedan_1", "class": "car", "location": [-75.0, 10.5, 0.5],
+      "attributes": {"speed_kmh": 48, "state": "moving", "orientation": "east", "size": [4.5, 1.8, 1.4], "color": "white", "brake_lights": "off"},
+      "in_zone": "urban_road_1"
+    },
+    {
+      "id": "sedan_2", "class": "car", "location": [-72.0, 12.0, 0.5],
+      "attributes": {"speed_kmh": 52, "state": "moving", "orientation": "east", "size": [4.6, 1.8, 1.4], "color": "black", "lane_position": "left_lane", "lateral_deviation": "slight_weaving"},
+      "in_zone": "urban_road_1"
+    },
+    {
+      "id": "sedan_3", "class": "car", "location": [-88.0, 9.8, 0.5],
+      "attributes": {"speed_kmh": 58, "state": "moving", "orientation": "east", "size": [4.5, 1.8, 1.4], "color": "silver"},
+      "in_zone": "urban_road_4"
+    },
+    {
+      "id": "truck_4", "class": "truck", "location": [-18.0, 9.0, 1.0],
+      "attributes": {"speed_kmh": 0, "state": "stationary", "orientation": "east", "size": [8.0, 2.5, 3.5], "color": "white", "hazard_lights": "on", "lane_position": "right_lane_blocking"},
+      "in_zone": "urban_road_3"
+    },
+    {
+      "id": "truck_5", "class": "truck", "location": [155.0, -1.0, 1.0],
+      "attributes": {"speed_kmh": 75, "state": "moving", "orientation": "east", "size": [12.0, 2.5, 4.0], "color": "blue", "vehicle_type": "cargo"},
+      "in_zone": "highway_section_2"
+    },
+    {
+      "id": "bus_6", "class": "bus", "location": [-42.0, 14.0, 1.0],
+      "attributes": {"speed_kmh": 0, "state": "stationary", "orientation": "east", "size": [12.0, 2.5, 3.2], "color": "green_white", "doors": "open", "vehicle_type": "city_bus"},
+      "in_zone": "bus_lane_1"
+    },
+    {
+      "id": "bus_7", "class": "bus", "location": [35.0, 88.0, 1.0],
+      "attributes": {"speed_kmh": 25, "state": "moving", "orientation": "north", "size": [10.0, 2.5, 3.0], "color": "yellow", "vehicle_type": "school_bus", "flashing_lights": "amber"},
+      "in_zone": "school_zone_1"
+    },
+    {
+      "id": "motorcycle_8", "class": "motorcycle", "location": [-39.0, 11.0, 0.5],
+      "attributes": {"speed_kmh": 35, "state": "moving", "orientation": "east", "size": [2.0, 0.8, 1.2], "color": "red", "lane_position": "between_lanes"},
+      "in_zone": "intersection_2"
+    },
+    {
+      "id": "bicycle_9", "class": "bicycle", "location": [45.0, 92.0, 0.5],
+      "attributes": {"speed_kmh": 18, "state": "moving", "orientation": "north", "size": [1.8, 0.6, 1.1], "color": "blue", "lane_position": "road_edge"},
+      "in_zone": "school_zone_1"
+    },
+    {
+      "id": "sedan_10", "class": "car", "location": [165.0, 1.5, 0.5],
+      "attributes": {"speed_kmh": 95, "state": "moving", "orientation": "east", "size": [4.6, 1.8, 1.4], "color": "red", "lane_position": "left_lane"},
+      "in_zone": "highway_section_2"
+    },
+    {
+      "id": "sedan_11", "class": "car", "location": [163.0, -0.5, 0.5],
+      "attributes": {"speed_kmh": 93, "state": "moving", "orientation": "east", "size": [4.5, 1.8, 1.4], "color": "blue", "lane_position": "right_lane"},
+      "in_zone": "highway_section_2"
+    },
+    {
+      "id": "emergency_vehicle_12", "class": "emergency_vehicle", "location": [-90.0, 11.0, 1.0],
+      "attributes": {"speed_kmh": 90, "state": "moving", "orientation": "east", "size": [6.0, 2.2, 2.8], "color": "white_red", "vehicle_type": "ambulance", "sirens": "active", "emergency_lights": "active"},
+      "in_zone": "urban_road_4"
+    },
+    {
+      "id": "parked_car_13", "class": "parked_vehicle", "location": [-71.0, -20.0, 0.5],
+      "attributes": {"speed_kmh": 0, "state": "stationary", "orientation": "east", "size": [4.5, 1.8, 1.4], "color": "grey"},
+      "in_zone": "parking_area_1"
+    },
+    {
+      "id": "parked_car_14", "class": "parked_vehicle", "location": [69.0, 86.0, 0.8],
+      "attributes": {"speed_kmh": 0, "state": "stationary", "orientation": "south", "size": [4.8, 2.0, 1.8], "color": "black", "vehicle_type": "suv"},
+      "in_zone": "parking_area_2"
+    },
+    {
+      "id": "sedan_15", "class": "car", "location": [138.0, 12.0, 0.5],
+      "attributes": {"speed_kmh": 55, "state": "moving", "orientation": "west", "size": [4.5, 1.8, 1.4], "color": "green", "lane_position": "on_ramp"},
+      "in_zone": "merge_zone_1"
+    },
+    {
+      "id": "traffic_light_1", "class": "traffic_light", "location": [-80.0, 12.0, 4.0],
+      "attributes": {"signal_state": "yellow", "facing": "east", "mounted": "pole"},
+      "in_zone": "intersection_1"
+    },
+    {
+      "id": "traffic_light_2", "class": "traffic_light", "location": [-40.0, 12.0, 4.0],
+      "attributes": {"signal_state": "green", "facing": "east", "mounted": "pole"},
+      "in_zone": "intersection_2"
+    },
+    {
+      "id": "traffic_light_3", "class": "traffic_light", "location": [-40.0, -28.0, 4.0],
+      "attributes": {"signal_state": "red", "facing": "south", "mounted": "pole"},
+      "in_zone": "intersection_3"
+    },
+    {
+      "id": "traffic_light_4", "class": "traffic_light", "location": [50.0, 92.0, 4.0],
+      "attributes": {"signal_state": "green", "facing": "north", "mounted": "pole"},
+      "in_zone": "intersection_4"
+    },
+    {
+      "id": "traffic_light_5", "class": "traffic_light", "location": [32.0, 91.0, 3.0],
+      "attributes": {"signal_state": "red", "signal_type": "pedestrian_crossing", "facing": "north", "mounted": "pole"},
+      "in_zone": "school_zone_1"
+    },
+    {
+      "id": "traffic_light_6", "class": "traffic_light", "location": [-58.0, -13.0, 4.0],
+      "attributes": {"signal_state": "flashing_yellow", "facing": "south", "mounted": "pole"},
+      "in_zone": "construction_zone_1"
+    },
+    {
+      "id": "traffic_light_7", "class": "traffic_light", "location": [137.0, 11.0, 3.5],
+      "attributes": {"signal_state": "red", "signal_type": "ramp_meter", "facing": "west", "mounted": "pole"},
+      "in_zone": "merge_zone_1"
+    },
+    {
+      "id": "traffic_light_8", "class": "traffic_light", "location": [160.0, 3.0, 6.0],
+      "attributes": {"signal_state": "green", "signal_type": "overhead_vms", "display_text": "90", "facing": "east", "mounted": "gantry"},
+      "in_zone": "highway_section_2"
+    },
+    {
+      "id": "speed_limit_sign_1", "class": "speed_limit_sign", "location": [-95.0, 10.0, 2.5],
+      "attributes": {"posted_value": 50, "facing": "east"},
+      "in_zone": "urban_road_4"
+    },
+    {
+      "id": "speed_limit_sign_2", "class": "speed_limit_sign", "location": [28.0, 93.0, 2.5],
+      "attributes": {"posted_value": 30, "facing": "north"},
+      "in_zone": "school_zone_1"
+    },
+    {
+      "id": "speed_limit_sign_3", "class": "speed_limit_sign", "location": [118.0, 2.0, 3.0],
+      "attributes": {"posted_value": 90, "facing": "east"},
+      "in_zone": "highway_section_1"
+    },
+    {
+      "id": "stop_sign_4", "class": "stop_sign", "location": [-32.0, -28.0, 2.5],
+      "attributes": {"facing": "north"},
+      "in_zone": "side_road_1"
+    },
+    {
+      "id": "yield_sign_5", "class": "yield_sign", "location": [136.0, 13.0, 2.5],
+      "attributes": {"facing": "west"},
+      "in_zone": "merge_zone_1"
+    },
+    {
+      "id": "no_parking_sign_6", "class": "no_parking_sign", "location": [-19.0, 12.0, 2.5],
+      "attributes": {"facing": "east"},
+      "in_zone": "urban_road_3"
+    },
+    {
+      "id": "lane_merge_sign_7", "class": "lane_merge_sign", "location": [170.0, -3.0, 3.0],
+      "attributes": {"facing": "east"},
+      "in_zone": "highway_section_2"
+    },
+    {
+      "id": "school_zone_sign_8", "class": "school_zone_sign", "location": [25.0, 88.0, 2.5],
+      "attributes": {"facing": "north", "flashing_lights": "amber"},
+      "in_zone": "school_zone_1"
+    },
+    {
+      "id": "construction_sign_9", "class": "construction_sign", "location": [-62.0, -12.0, 2.5],
+      "attributes": {"facing": "south", "color": "orange"},
+      "in_zone": "construction_zone_1"
+    },
+    {
+      "id": "speed_limit_sign_10", "class": "speed_limit_sign", "location": [198.0, 2.0, 4.0],
+      "attributes": {"posted_value": 100, "facing": "east", "sign_type": "electronic_variable"},
+      "in_zone": "highway_section_3"
+    },
+    {
+      "id": "pedestrian_1", "class": "adult_pedestrian", "location": [-41.0, 8.0, 0.0],
+      "attributes": {"speed_kmh": 0, "state": "standing", "orientation": "facing_road", "position": "curb_edge"},
+      "in_zone": "intersection_2"
+    },
+    {
+      "id": "child_pedestrian_2", "class": "child_pedestrian", "location": [31.0, 90.0, 0.0],
+      "attributes": {"speed_kmh": 4, "state": "crossing", "orientation": "east", "estimated_age": "child", "size": [0.4, 0.4, 1.2]},
+      "in_zone": "school_zone_1"
+    },
+    {
+      "id": "elderly_pedestrian_3", "class": "elderly_pedestrian", "location": [-39.0, -31.0, 0.0],
+      "attributes": {"speed_kmh": 3, "state": "crossing", "orientation": "west", "walking_aid": "cane", "size": [0.5, 0.5, 1.6]},
+      "in_zone": "intersection_3"
+    },
+    {
+      "id": "pedestrian_4", "class": "adult_pedestrian", "location": [52.0, 71.0, 0.0],
+      "attributes": {"speed_kmh": 10, "state": "moving", "orientation": "north", "position": "road_shoulder", "clothing": "dark", "reflective_gear": false},
+      "in_zone": "residential_road_1"
+    },
+    {
+      "id": "child_pedestrian_5", "class": "child_pedestrian", "location": [33.0, 87.0, 0.0],
+      "attributes": {"speed_kmh": 5, "state": "moving", "orientation": "south", "estimated_age": "child", "group_size": 3, "position": "sidewalk_edge"},
+      "in_zone": "school_zone_1"
+    },
+    {
+      "id": "construction_cone_1", "class": "construction_cone", "location": [-58.0, -16.0, 0.0],
+      "attributes": {"state": "stationary", "color": "orange", "height_m": 0.7},
+      "in_zone": "construction_zone_1"
+    },
+    {
+      "id": "construction_cone_2", "class": "construction_cone", "location": [-55.0, -18.0, 0.0],
+      "attributes": {"state": "stationary", "color": "orange", "height_m": 0.7, "reflective_tape": true},
+      "in_zone": "construction_zone_1"
+    },
+    {
+      "id": "debris_3", "class": "debris", "location": [72.0, 76.0, 0.0],
+      "attributes": {"state": "stationary", "size": [1.5, 0.8, 0.3], "color": "dark_brown", "material": "wood_leaves"},
+      "in_zone": "wet_road_section_1"
+    },
+    {
+      "id": "debris_4", "class": "debris", "location": [170.0, -1.5, 0.0],
+      "attributes": {"state": "stationary", "size": [0.6, 0.5, 0.4], "color": "brown", "material": "cardboard"},
+      "in_zone": "highway_section_2"
+    },
+    {
+      "id": "construction_cone_3", "class": "construction_cone", "location": [-38.0, -12.0, 0.0],
+      "attributes": {"state": "stationary", "color": "orange", "height_m": 0.7},
+      "in_zone": "urban_road_2"
+    },
+    {
+      "id": "guardrail_1", "class": "guardrail", "location": [160.0, 4.0, 0.0],
+      "attributes": {"state": "stationary", "material": "metal_w_beam", "length_m": 40.0},
+      "in_zone": "highway_section_2"
+    },
+    {
+      "id": "guardrail_2", "class": "guardrail", "location": [182.0, -7.0, 0.0],
+      "attributes": {"state": "stationary", "material": "concrete", "length_m": 20.0},
+      "in_zone": "merge_zone_2"
+    },
+    {
+      "id": "crosswalk_1", "class": "crosswalk", "location": [-40.0, 8.0, 0.0],
+      "attributes": {"state": "active", "marking": "zebra_stripes", "has_led_lights": true},
+      "in_zone": "intersection_2"
+    },
+    {
+      "id": "crosswalk_2", "class": "crosswalk", "location": [31.0, 90.5, 0.0],
+      "attributes": {"state": "active", "marking": "yellow_lines", "has_crossing_guard": true, "road_text": "SCHOOL"},
+      "in_zone": "school_zone_1"
+    },
+    {
+      "id": "bus_stop_1", "class": "bus_stop", "location": [-43.0, 15.0, 0.0],
+      "attributes": {"state": "active", "has_shelter": true},
+      "in_zone": "bus_lane_1"
+    },
+    {
+      "id": "bus_stop_2", "class": "bus_stop", "location": [48.0, 94.0, 0.0],
+      "attributes": {"state": "active", "has_shelter": false},
+      "in_zone": "residential_road_3"
+    },
+    {
+      "id": "median_1", "class": "median", "location": [-60.0, 10.0, 0.0],
+      "attributes": {"state": "stationary", "material": "concrete_raised", "has_gap_at": "intersection_1"},
+      "in_zone": "urban_road_1"
+    }
+  ],
+  "edges": [
+    {"source": "sedan_3", "target": "ego_car", "relation": "behind", "distance_m": 15.0},
+    {"source": "ego_car", "target": "sedan_1", "relation": "behind", "distance_m": 30.0},
+    {"source": "sedan_2", "target": "ego_car", "relation": "left_ahead", "distance_m": 14.0},
+    {"source": "emergency_vehicle_12", "target": "ego_car", "relation": "behind", "distance_m": 5.0},
+    {"source": "ego_car", "target": "traffic_light_1", "relation": "approaching", "distance_m": 30.0},
+    {"source": "bus_6", "target": "crosswalk_1", "relation": "adjacent_blocking_view", "distance_m": 3.0},
+    {"source": "pedestrian_1", "target": "crosswalk_1", "relation": "at_edge", "distance_m": 1.0},
+    {"source": "motorcycle_8", "target": "bus_6", "relation": "approaching", "distance_m": 4.0},
+    {"source": "child_pedestrian_2", "target": "crosswalk_2", "relation": "on_crosswalk", "distance_m": 0.0},
+    {"source": "child_pedestrian_5", "target": "crosswalk_2", "relation": "near", "distance_m": 4.0},
+    {"source": "bicycle_9", "target": "child_pedestrian_2", "relation": "near", "distance_m": 14.0},
+    {"source": "bus_7", "target": "crosswalk_2", "relation": "approaching", "distance_m": 5.0},
+    {"source": "truck_4", "target": "no_parking_sign_6", "relation": "adjacent", "distance_m": 3.0},
+    {"source": "sedan_10", "target": "sedan_11", "relation": "adjacent_left", "distance_m": 3.0},
+    {"source": "truck_5", "target": "sedan_10", "relation": "ahead_right", "distance_m": 10.0},
+    {"source": "debris_4", "target": "truck_5", "relation": "near", "distance_m": 15.0},
+    {"source": "sedan_15", "target": "highway_section_2", "relation": "merging_into", "distance_m": 10.0},
+    {"source": "elderly_pedestrian_3", "target": "stop_sign_4", "relation": "near", "distance_m": 8.0},
+    {"source": "parked_car_14", "target": "intersection_4", "relation": "near_blocking_sightline", "distance_m": 20.0},
+    {"source": "pedestrian_4", "target": "debris_3", "relation": "approaching", "distance_m": 20.0},
+    {"source": "bus_6", "target": "bus_stop_1", "relation": "stopped_at", "distance_m": 1.0},
+    {"source": "construction_cone_1", "target": "construction_cone_2", "relation": "forms_barrier_with", "distance_m": 4.0},
+    {"source": "guardrail_1", "target": "highway_section_2", "relation": "along_median", "distance_m": 0.0}
+  ]
+}
