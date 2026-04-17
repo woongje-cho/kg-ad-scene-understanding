@@ -1,0 +1,337 @@
+{
+  "experiment": "KSAE 2026 KG vs 3DSG",
+  "total_queries": 30,
+  "overall_kg_accuracy": 83.4,
+  "overall_dsg_accuracy": 45.8,
+  "kg_wins": 16,
+  "dsg_wins": 0,
+  "ties": 14,
+  "by_category": {
+    "Spatial": {
+      "kg_avg": 90.0,
+      "dsg_avg": 80.0
+    },
+    "Identification": {
+      "kg_avg": 68.4,
+      "dsg_avg": 56.6
+    },
+    "Semantic": {
+      "kg_avg": 73.4,
+      "dsg_avg": 30.0
+    },
+    "Hierarchy": {
+      "kg_avg": 80.0,
+      "dsg_avg": 60.0
+    },
+    "Reasoning": {
+      "kg_avg": 93.4,
+      "dsg_avg": 20.0
+    },
+    "Dilemma": {
+      "kg_avg": 95.0,
+      "dsg_avg": 28.0
+    }
+  },
+  "queries": [
+    {
+      "id": 1,
+      "category": "Spatial",
+      "question": "Where is the ego vehicle currently located?",
+      "ground_truth": "urban_road_4 in urban_district, coordinates (-85, 10)",
+      "kg_score": 1.0,
+      "dsg_score": 1.0,
+      "kg_result_preview": "zone=urban_road_4; x=-85.0; y=10.0",
+      "dsg_result_preview": "ego: class=ego_vehicle, loc=[-85.0, 10.0, 0.0], room=lane_segment"
+    },
+    {
+      "id": 2,
+      "category": "Spatial",
+      "question": "Which zone contains the most vehicles?",
+      "ground_truth": "urban_road_4 (3: ego_car, sedan_3, emergency_vehicle_12) or highway_section_2 (3: truck_5, sedan_10, sedan_11)",
+      "kg_score": 1.0,
+      "dsg_score": 0.5,
+      "kg_result_preview": "zone=highway_section_2; cnt=3\nzone=urban_road_4; cnt=3\nzone=school_zone_1; cnt=2\nzone=urban_road_1; cnt=2\nzone=bus_lane_1; cnt=1",
+      "dsg_result_preview": "[NO RELEVANT DATA FOUND]"
+    },
+    {
+      "id": 3,
+      "category": "Spatial",
+      "question": "How many objects are in the school zone?",
+      "ground_truth": "5 objects: bus_7, bicycle_9, child_pedestrian_2, child_pedestrian_5, crosswalk_2 + signs",
+      "kg_score": 0.5,
+      "dsg_score": 0.5,
+      "kg_result_preview": "obj=bus_7; type=Bus\nobj=bicycle_9; type=Bicycle\nobj=traffic_light_5; type=TrafficLight\nobj=speed_limit_sign_2; type=SpeedLimitSign\nobj=school_zone_sign_8; type=SchoolZoneSign\nobj=child_pedestrian_2; type=ChildPedestrian\nobj=child_pedestrian_5; type=ChildPedestrian\nobj=crosswalk_2; type=Crosswalk",
+      "dsg_result_preview": "obj_8: class=bus, loc=[35.0, 88.0, 0.0]\nobj_10: class=bicycle, loc=[45.0, 92.0, 0.0]\nobj_21: class=traffic_light, loc=[32.0, 91.0, 3.0]\nobj_26: class=speed_limit_sign, loc=[28.0, 93.0, 2.5]\nobj_32: class=school_zone_sign, loc=[25.0, 88.0, 2.5]\nobj_36: class=pedestrian, loc=[31.0, 90.0, 0.0]\nobj_39: "
+    },
+    {
+      "id": 4,
+      "category": "Spatial",
+      "question": "What zones are connected to intersection_2?",
+      "ground_truth": "urban_road_1, urban_road_2, urban_road_3 (via conn_2, conn_3, conn_5)",
+      "kg_score": 1.0,
+      "dsg_score": 1.0,
+      "kg_result_preview": "conn=conn_2; zone=urban_road_1\nconn=conn_3; zone=urban_road_2\nconn=conn_5; zone=urban_road_3",
+      "dsg_result_preview": "obj_9: class=motorcycle, loc=[-39.0, 11.0, 0.0]\nobj_18: class=traffic_light, loc=[-40.0, 12.0, 3.0]\nobj_35: class=pedestrian, loc=[-41.0, 8.0, 0.0]\nobj_47: class=crosswalk, loc=[-40.0, 8.0, 0.0]\nobj_7: class=bus, loc=[-42.0, 14.0, 0.0]\nobj_49: class=bus_stop, loc=[-43.0, 15.0, 0.0]\n[NO CONNECTIVITY "
+    },
+    {
+      "id": 5,
+      "category": "Spatial",
+      "question": "List all zones in the highway district.",
+      "ground_truth": "highway_section_1/2/3, merge_zone_1/2, highway_road_1/2",
+      "kg_score": 1.0,
+      "dsg_score": 1.0,
+      "kg_result_preview": "zone=highway_section_1; type=HighwaySection\nzone=highway_section_2; type=HighwaySection\nzone=highway_section_3; type=HighwaySection\nzone=merge_zone_1; type=MergeZone\nzone=merge_zone_2; type=MergeZone\nzone=highway_road_1; type=LaneSegment\nzone=highway_road_2; type=LaneSegment",
+      "dsg_result_preview": "obj_27: class=speed_limit_sign, loc=[118.0, 2.0, 2.5], room=15\nobj_6: class=truck, loc=[155.0, -1.0, 0.0], room=16\nobj_11: class=car, loc=[165.0, 1.5, 0.0], room=16\nobj_12: class=car, loc=[163.0, -0.5, 0.0], room=16\nobj_24: class=traffic_light, loc=[160.0, 3.0, 5.0], room=16\nobj_31: class=lane_merge"
+    },
+    {
+      "id": 6,
+      "category": "Identification",
+      "question": "How many traffic lights are in the scene?",
+      "ground_truth": "8 traffic lights",
+      "kg_score": 1.0,
+      "dsg_score": 1.0,
+      "kg_result_preview": "cnt=8",
+      "dsg_result_preview": "obj_17: class=traffic_light, loc=[-80.0, 12.0, 3.0]\nobj_18: class=traffic_light, loc=[-40.0, 12.0, 3.0]\nobj_19: class=traffic_light, loc=[-40.0, -28.0, 3.0]\nobj_20: class=traffic_light, loc=[50.0, 92.0, 3.0]\nobj_21: class=traffic_light, loc=[32.0, 91.0, 3.0]\nobj_22: class=traffic_light, loc=[-58.0, "
+    },
+    {
+      "id": 7,
+      "category": "Identification",
+      "question": "Find all pedestrians and their locations.",
+      "ground_truth": "5 pedestrians: pedestrian_1 (intersection_2), child_pedestrian_2 (school_zone_1), elderly_pedestrian_3 (intersection_3), pedestrian_4 (residential_road_1), child_pedestrian_5 (school_zone_1)",
+      "kg_score": 0.67,
+      "dsg_score": 0.67,
+      "kg_result_preview": "ped=pedestrian_1; type=AdultPedestrian; zone=intersection_2\nped=child_pedestrian_2; type=ChildPedestrian; zone=school_zone_1\nped=elderly_pedestrian_3; type=ElderlyPedestrian; zone=intersection_3\nped=pedestrian_4; type=AdultPedestrian; zone=residential_road_1\nped=child_pedestrian_5; type=ChildPedestr",
+      "dsg_result_preview": "obj_35: class=pedestrian, loc=[-41.0, 8.0, 0.0]\nobj_36: class=pedestrian, loc=[31.0, 90.0, 0.0]\nobj_37: class=pedestrian, loc=[-39.0, -31.0, 0.0]\nobj_38: class=pedestrian, loc=[52.0, 71.0, 0.0]\nobj_39: class=pedestrian, loc=[33.0, 87.0, 0.0]"
+    },
+    {
+      "id": 8,
+      "category": "Identification",
+      "question": "List all parked vehicles.",
+      "ground_truth": "parked_car_13 (parking_area_1), parked_car_14 (parking_area_2), truck_4 (urban_road_3, illegally parked)",
+      "kg_score": 0.67,
+      "dsg_score": 0.33,
+      "kg_result_preview": "v=parked_car_13; zone=parking_area_1; comment=\"A legally parked grey sedan in parking_area_1. Doors could open at any time — the 'door zone' extends about 1m from the vehicle. Defensive driving requires maintaining distance when passing parked car\"\nv=parked_car_14; zone=parking_area_2; comment=\"A pa",
+      "dsg_result_preview": "obj_14: class=parked_vehicle, loc=[-71.0, -20.0, 0.0]\nobj_15: class=parked_vehicle, loc=[69.0, 86.0, 0.0]"
+    },
+    {
+      "id": 9,
+      "category": "Identification",
+      "question": "How many obstacles are on the highway?",
+      "ground_truth": "1: debris_4 on highway_section_2",
+      "kg_score": 0.33,
+      "dsg_score": 0.33,
+      "kg_result_preview": "obs=debris_4; type=Debris; zone=highway_section_2",
+      "dsg_result_preview": "obj_27: class=speed_limit_sign, loc=[118.0, 2.0, 2.5], room=15\nobj_6: class=truck, loc=[155.0, -1.0, 0.0], room=16\nobj_11: class=car, loc=[165.0, 1.5, 0.0], room=16\nobj_12: class=car, loc=[163.0, -0.5, 0.0], room=16\nobj_24: class=traffic_light, loc=[160.0, 3.0, 5.0], room=16\nobj_31: class=lane_merge"
+    },
+    {
+      "id": 10,
+      "category": "Identification",
+      "question": "Find all emergency vehicles and their status.",
+      "ground_truth": "emergency_vehicle_12: ambulance with sirens active, 90 km/h, approaching from behind on urban_road_4",
+      "kg_score": 0.75,
+      "dsg_score": 0.5,
+      "kg_result_preview": "v=emergency_vehicle_12; zone=urban_road_4; speed=90; state=moving; comment=\"An ambulance with sirens and lights active, approaching from behind at approximately 90 km/h on urban_road_1. All vehicles must yield and pull to the right side of the road. If at an intersection, veh\"",
+      "dsg_result_preview": "obj_16: class=car, loc=[138.0, 12.0, 0.0]\nobj_23: class=traffic_light, loc=[137.0, 11.0, 3.0]\nobj_29: class=yield_sign, loc=[136.0, 13.0, 2.5]\nobj_13: class=emergency_vehicle, loc=[-90.0, 11.0, 0.0]"
+    },
+    {
+      "id": 11,
+      "category": "Semantic",
+      "question": "What is the speed limit at school_zone_1?",
+      "ground_truth": "30 km/h",
+      "kg_score": 1.0,
+      "dsg_score": 1.0,
+      "kg_result_preview": "limit=30",
+      "dsg_result_preview": "obj_8: class=bus, loc=[35.0, 88.0, 0.0]\nobj_10: class=bicycle, loc=[45.0, 92.0, 0.0]\nobj_21: class=traffic_light, loc=[32.0, 91.0, 3.0]\nobj_26: class=speed_limit_sign, loc=[28.0, 93.0, 2.5]\nobj_32: class=school_zone_sign, loc=[25.0, 88.0, 2.5]\nobj_36: class=pedestrian, loc=[31.0, 90.0, 0.0]\nobj_39: "
+    },
+    {
+      "id": 12,
+      "category": "Semantic",
+      "question": "What state is traffic_light_1 currently in?",
+      "ground_truth": "yellow — creating a dilemma zone situation",
+      "kg_score": 1.0,
+      "dsg_score": 0.5,
+      "kg_result_preview": "state=yellow; comment=\"A traffic light at intersection_1 currently showing YELLOW. At the ego vehicle's current distance of ~30m and speed of 55 km/h, this is a classic dilemma zone situation: stopping requires hard braking\"",
+      "dsg_result_preview": "[NO SIGNAL STATE DATA IN 3DSG]"
+    },
+    {
+      "id": 13,
+      "category": "Semantic",
+      "question": "Which vehicles are currently stationary?",
+      "ground_truth": "truck_4 (illegally parked), bus_6 (at bus stop), parked_car_13, parked_car_14",
+      "kg_score": 0.0,
+      "dsg_score": 0.0,
+      "kg_result_preview": "[NO RESULTS]",
+      "dsg_result_preview": "[NO RELEVANT DATA FOUND]"
+    },
+    {
+      "id": 14,
+      "category": "Semantic",
+      "question": "What is sedan_3's speed and why does it matter?",
+      "ground_truth": "58 km/h, following ego at 15m — critical for dilemma zone (rear-end collision risk if ego brakes)",
+      "kg_score": 0.67,
+      "dsg_score": 0.0,
+      "kg_result_preview": "speed=58; comment=\"A silver sedan following the ego vehicle at approximately 15m distance, traveling at 58 km/h. This close following distance means emergency braking by the ego vehicle could cause a rear-end collision \"",
+      "dsg_result_preview": "[NO RELEVANT DATA FOUND]"
+    },
+    {
+      "id": 15,
+      "category": "Semantic",
+      "question": "Is the connection between intersection_3 and side_road_1 open?",
+      "ground_truth": "No, conn_8 isOpen=false (closed)",
+      "kg_score": 1.0,
+      "dsg_score": 0.0,
+      "kg_result_preview": "conn=conn_8; open=false",
+      "dsg_result_preview": "[NO CONNECTIVITY DATA IN 3DSG]"
+    },
+    {
+      "id": 16,
+      "category": "Hierarchy",
+      "question": "Find all TrafficControl objects (lights + signs).",
+      "ground_truth": "18 objects: 8 TrafficLights + 10 TrafficSigns",
+      "kg_score": 1.0,
+      "dsg_score": 0.0,
+      "kg_result_preview": "obj=lane_merge_sign_7; type=LaneMergeSign\nobj=no_parking_sign_6; type=NoParkingSign\nobj=school_zone_sign_8; type=SchoolZoneSign\nobj=speed_limit_sign_1; type=SpeedLimitSign\nobj=speed_limit_sign_10; type=SpeedLimitSign\nobj=speed_limit_sign_2; type=SpeedLimitSign\nobj=speed_limit_sign_3; type=SpeedLimit",
+      "dsg_result_preview": "[NO RELEVANT DATA FOUND]"
+    },
+    {
+      "id": 17,
+      "category": "Hierarchy",
+      "question": "What types of vehicles are present in the scene?",
+      "ground_truth": "Car(6), Truck(2), Bus(2), Motorcycle(1), Bicycle(1), EmergencyVehicle(1), ParkedVehicle(2), EgoVehicle(1)",
+      "kg_score": 1.0,
+      "dsg_score": 1.0,
+      "kg_result_preview": "type=Car; cnt=6\ntype=Bus; cnt=2\ntype=ParkedVehicle; cnt=2\ntype=Truck; cnt=2\ntype=Bicycle; cnt=1\ntype=EgoVehicle; cnt=1\ntype=EmergencyVehicle; cnt=1\ntype=Motorcycle; cnt=1",
+      "dsg_result_preview": "vehicle classes found: ['bicycle', 'bus', 'car', 'ego_vehicle', 'emergency_vehicle', 'motorcycle', 'parked_vehicle', 'truck']"
+    },
+    {
+      "id": 18,
+      "category": "Hierarchy",
+      "question": "What subtypes of Zone are present?",
+      "ground_truth": "Intersection(4), LaneSegment(13), HighwaySection(3), ParkingArea(2), SchoolZone(1), MergeZone(2)",
+      "kg_score": 1.0,
+      "dsg_score": 1.0,
+      "kg_result_preview": "type=Intersection; cnt=4\ntype=LaneSegment; cnt=13\ntype=ParkingArea; cnt=2\ntype=SchoolZone; cnt=1\ntype=HighwaySection; cnt=3\ntype=MergeZone; cnt=2",
+      "dsg_result_preview": "room categories: ['highway_section', 'intersection', 'lane_segment', 'merge_zone', 'parking', 'school_zone']"
+    },
+    {
+      "id": 19,
+      "category": "Hierarchy",
+      "question": "Find all Infrastructure objects.",
+      "ground_truth": "7: guardrail_1, guardrail_2, crosswalk_1, crosswalk_2, bus_stop_1, bus_stop_2, median_1",
+      "kg_score": 0.0,
+      "dsg_score": 0.0,
+      "kg_result_preview": "obj=guardrail_1; type=Guardrail; zone=highway_section_2\nobj=guardrail_2; type=Guardrail; zone=merge_zone_2\nobj=crosswalk_1; type=Crosswalk; zone=intersection_2\nobj=crosswalk_2; type=Crosswalk; zone=school_zone_1\nobj=bus_stop_1; type=BusStop; zone=bus_lane_1\nobj=bus_stop_2; type=BusStop; zone=residen",
+      "dsg_result_preview": "obj_45: class=guardrail, loc=[160.0, 4.0, 0.0]\nobj_46: class=guardrail, loc=[182.0, -7.0, 0.0]\nobj_47: class=crosswalk, loc=[-40.0, 8.0, 0.0]\nobj_48: class=crosswalk, loc=[31.0, 90.5, 0.0]\nobj_49: class=bus_stop, loc=[-43.0, 15.0, 0.0]\nobj_50: class=bus_stop, loc=[48.0, 94.0, 0.0]\nobj_51: class=medi"
+    },
+    {
+      "id": 20,
+      "category": "Hierarchy",
+      "question": "Is a Crosswalk classified as Infrastructure? What is its full class hierarchy?",
+      "ground_truth": "Yes: Crosswalk → Infrastructure → Object → PhysicalObject",
+      "kg_score": 1.0,
+      "dsg_score": 1.0,
+      "kg_result_preview": "parent=Infrastructure\nparent=Object\nparent=PhysicalObject",
+      "dsg_result_preview": "obj_45: class=guardrail, loc=[160.0, 4.0, 0.0]\nobj_46: class=guardrail, loc=[182.0, -7.0, 0.0]\nobj_47: class=crosswalk, loc=[-40.0, 8.0, 0.0]\nobj_48: class=crosswalk, loc=[31.0, 90.5, 0.0]\nobj_49: class=bus_stop, loc=[-43.0, 15.0, 0.0]\nobj_50: class=bus_stop, loc=[48.0, 94.0, 0.0]\nobj_51: class=medi"
+    },
+    {
+      "id": 21,
+      "category": "Reasoning",
+      "question": "Why is truck_4 a hazard and how should vehicles respond?",
+      "ground_truth": "Illegally parked in right lane of urban_road_3, blocks visibility. Vehicles must cross center line to pass when oncoming lane is clear.",
+      "kg_score": 0.67,
+      "dsg_score": 0.0,
+      "kg_result_preview": "comment=\"A large delivery truck illegally parked in the right lane of urban_road_3, partially blocking traffic flow with hazard lights on. Its height blocks visibility of oncoming traffic. Passing requires tem\"; zone=urban_road_3; obstacle=true",
+      "dsg_result_preview": "obj_5: class=truck, loc=[-18.0, 9.0, 0.0]\nobj_6: class=truck, loc=[155.0, -1.0, 0.0]"
+    },
+    {
+      "id": 22,
+      "category": "Reasoning",
+      "question": "What makes the school zone dangerous right now?",
+      "ground_truth": "Children crossing (child_pedestrian_2 at crosswalk), child group on sidewalk edge (child_pedestrian_5), school bus approaching (bus_7), cyclist (bicycle_9). Children are unpredictable.",
+      "kg_score": 1.0,
+      "dsg_score": 0.25,
+      "kg_result_preview": "obj=bus_7; type=Bus; comment=\"A school bus with flashing amber lights approaching the school zone. When it stops and extends the stop sign, all traffic in both directions must stop by law — a critical legal requirement.\"\nobj=bicycle_9; type=Bicycle; comment=\"A cyclist riding at 18 km/h on the edge o",
+      "dsg_result_preview": "obj_8: class=bus, loc=[35.0, 88.0, 0.0]\nobj_10: class=bicycle, loc=[45.0, 92.0, 0.0]\nobj_21: class=traffic_light, loc=[32.0, 91.0, 3.0]\nobj_26: class=speed_limit_sign, loc=[28.0, 93.0, 2.5]\nobj_32: class=school_zone_sign, loc=[25.0, 88.0, 2.5]\nobj_36: class=pedestrian, loc=[31.0, 90.0, 0.0]\nobj_39: "
+    },
+    {
+      "id": 23,
+      "category": "Reasoning",
+      "question": "Should the ego vehicle brake hard at intersection_1 given the yellow light?",
+      "ground_truth": "No — sedan_3 following at 15m/58km/h makes emergency braking dangerous (rear-end collision risk). Proceeding through is safer.",
+      "kg_score": 1.0,
+      "dsg_score": 0.5,
+      "kg_result_preview": "obj=traffic_light_1; comment=\"A traffic light at intersection_1 currently showing YELLOW. At the ego vehicle's current distance of ~30m and speed of 55 km/h, this is a classic dilemma zone situation: stopping requires hard braking\"\nobj=sedan_3; comment=\"A silver sedan following the ego vehicle at ap",
+      "dsg_result_preview": "ego: class=ego_vehicle, loc=[-85.0, 10.0, 0.0], room=lane_segment\nobj_17: class=traffic_light, loc=[-80.0, 12.0, 3.0]\n[NO SIGNAL STATE DATA IN 3DSG]"
+    },
+    {
+      "id": 24,
+      "category": "Reasoning",
+      "question": "What pedestrian risk exists near bus_6 at intersection_2?",
+      "ground_truth": "Bus obscures crosswalk_1 behind it. pedestrian_1 waiting impatiently may jaywalk. Hidden crosswalk is one of most dangerous pedestrian scenarios.",
+      "kg_score": 1.0,
+      "dsg_score": 0.25,
+      "kg_result_preview": "obj=motorcycle_8; comment=\"A motorcycle lane-splitting between vehicles at intersection_2, traveling at 35 km/h. Motorcycles are harder to detect in mirrors and can appear suddenly in blind spots. Their small size means they ar\"\nobj=traffic_light_2; comment=\"A traffic light at intersection_2 current",
+      "dsg_result_preview": "obj_9: class=motorcycle, loc=[-39.0, 11.0, 0.0]\nobj_18: class=traffic_light, loc=[-40.0, 12.0, 3.0]\nobj_35: class=pedestrian, loc=[-41.0, 8.0, 0.0]\nobj_47: class=crosswalk, loc=[-40.0, 8.0, 0.0]\nobj_7: class=bus, loc=[-42.0, 14.0, 0.0]\nobj_49: class=bus_stop, loc=[-43.0, 15.0, 0.0]\nobj_35: class=ped"
+    },
+    {
+      "id": 25,
+      "category": "Reasoning",
+      "question": "What's the danger of debris_3 and how does road condition affect it?",
+      "ground_truth": "Dark debris on wet road after rain, blends with surface. Risk of tire damage or loss of control on slippery surface. Hard to see at night.",
+      "kg_score": 1.0,
+      "dsg_score": 0.0,
+      "kg_result_preview": "comment=\"Scattered road debris (fallen tree branch and leaves) on the wet residential road after recent rain. The debris is dark-colored and blends with the wet road surface, making it difficult to see, especi\"",
+      "dsg_result_preview": "obj_42: class=debris, loc=[72.0, 76.0, 0.0]\nobj_43: class=debris, loc=[170.0, -1.5, 0.0]"
+    },
+    {
+      "id": 26,
+      "category": "Dilemma",
+      "question": "Describe all factors in the yellow light dilemma at intersection_1.",
+      "ground_truth": "Ego at 55km/h ~30m from intersection, yellow light, sedan_3 following at 15m/58km/h. Hard braking needs >4m/s² deceleration. Rear-end collision risk vs running late yellow.",
+      "kg_score": 1.0,
+      "dsg_score": 0.2,
+      "kg_result_preview": "obj=ego_car; type=EgoVehicle; comment=\"The autonomous ego vehicle, a mid-size sedan equipped with LiDAR, cameras, and radar. Currently traveling at 55 km/h on the urban road approaching intersection_1. The vehicle must make real-time decis\"\nobj=traffic_light_1; type=TrafficLight; comment=\"A traffic ",
+      "dsg_result_preview": "obj_17: class=traffic_light, loc=[-80.0, 12.0, 3.0]\n[NO SIGNAL STATE DATA IN 3DSG]"
+    },
+    {
+      "id": 27,
+      "category": "Dilemma",
+      "question": "Should the ego vehicle exceed the 90 km/h speed limit on the highway to match 95 km/h traffic flow?",
+      "ground_truth": "Yes — matching flow is safer. Strict compliance creates dangerous speed differential. sedan_10 (95), sedan_11 (93) demonstrate consistent flow above limit.",
+      "kg_score": 0.75,
+      "dsg_score": 0.75,
+      "kg_result_preview": "obj=speed_limit_sign_3; comment=\"A highway speed limit sign showing 90 km/h. However, actual traffic flow is consistently 93-97 km/h. This speed differential between posted limit and traffic flow creates a common driving dilemma wher\"\nobj=sedan_10; comment=\"A red sedan traveling at 95 km/h in the le",
+      "dsg_result_preview": "ego: class=ego_vehicle, loc=[-85.0, 10.0, 0.0], room=lane_segment\nobj_27: class=speed_limit_sign, loc=[118.0, 2.0, 2.5], room=15\nobj_6: class=truck, loc=[155.0, -1.0, 0.0], room=16\nobj_11: class=car, loc=[165.0, 1.5, 0.0], room=16\nobj_12: class=car, loc=[163.0, -0.5, 0.0], room=16\nobj_24: class=traf"
+    },
+    {
+      "id": 28,
+      "category": "Dilemma",
+      "question": "How to safely pass the illegally parked truck_4 on urban_road_3?",
+      "ground_truth": "Cross center line when oncoming lane clear. Truck blocks visibility of oncoming traffic (tall vehicle). No-parking sign confirms illegal status. Standard safe response despite technical lane violation.",
+      "kg_score": 1.0,
+      "dsg_score": 0.25,
+      "kg_result_preview": "obj=truck_4; comment=\"A large delivery truck illegally parked in the right lane of urban_road_3, partially blocking traffic flow with hazard lights on. Its height blocks visibility of oncoming traffic. Passing requires tem\"\nobj=no_parking_sign_6; comment=\"A no-parking sign on urban_road_3 where truc",
+      "dsg_result_preview": "obj_14: class=parked_vehicle, loc=[-71.0, -20.0, 0.0]\nobj_15: class=parked_vehicle, loc=[69.0, 86.0, 0.0]\nobj_5: class=truck, loc=[-18.0, 9.0, 0.0]\nobj_6: class=truck, loc=[155.0, -1.0, 0.0]"
+    },
+    {
+      "id": 29,
+      "category": "Dilemma",
+      "question": "Assess the multi-factor risk at intersection_2 (bus, pedestrian, motorcycle, crosswalk).",
+      "ground_truth": "Bus_6 blocks crosswalk visibility, pedestrian_1 may jaywalk, motorcycle_8 lane-splitting (hard to detect), crosswalk_1 has LED warnings. Compound risk requires slow approach.",
+      "kg_score": 1.0,
+      "dsg_score": 0.0,
+      "kg_result_preview": "obj=motorcycle_8; type=Motorcycle; comment=\"A motorcycle lane-splitting between vehicles at intersection_2, traveling at 35 km/h. Motorcycles are harder to detect in mirrors and can appear suddenly in blind spots. Their small size means they ar\"\nobj=traffic_light_2; type=TrafficLight; comment=\"A tra",
+      "dsg_result_preview": "obj_9: class=motorcycle, loc=[-39.0, 11.0, 0.0]\nobj_18: class=traffic_light, loc=[-40.0, 12.0, 3.0]\nobj_35: class=pedestrian, loc=[-41.0, 8.0, 0.0]\nobj_47: class=crosswalk, loc=[-40.0, 8.0, 0.0]\nobj_7: class=bus, loc=[-42.0, 14.0, 0.0]\nobj_49: class=bus_stop, loc=[-43.0, 15.0, 0.0]\nobj_35: class=ped"
+    },
+    {
+      "id": 30,
+      "category": "Dilemma",
+      "question": "What makes the merge at merge_zone_1 dangerous and how should vehicles cooperate?",
+      "ground_truth": "sedan_15 entering at 55km/h vs highway flow at 90+ km/h — 35km/h speed differential. Ramp metering signal (red). yield_sign_5 present. Requires cooperative lane change from highway traffic.",
+      "kg_score": 1.0,
+      "dsg_score": 0.2,
+      "kg_result_preview": "obj=sedan_15; comment=\"A green sedan entering the merge zone from the on-ramp at 55 km/h, attempting to merge into highway traffic flowing at 90+ km/h. The significant speed differential creates a dangerous merge situation \"\nobj=traffic_light_7; comment=\"A ramp metering signal at merge_zone_1 curren",
+      "dsg_result_preview": "obj_16: class=car, loc=[138.0, 12.0, 0.0]\nobj_23: class=traffic_light, loc=[137.0, 11.0, 3.0]\nobj_29: class=yield_sign, loc=[136.0, 13.0, 2.5]"
+    }
+  ]
+}
