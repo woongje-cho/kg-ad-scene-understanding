@@ -1,0 +1,357 @@
+@prefix : <http://www.semanticweb.org/driving-ontology/2026/3#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================
+# Road Network (analogous to Building)
+# ============================================================
+:UrbanTown05 rdf:type :RoadNetwork ;
+    :x "0.0"^^xsd:float ;
+    :y "0.0"^^xsd:float .
+
+# ============================================================
+# Districts (analogous to Storey) — 3 areas
+# ============================================================
+:urban_district rdf:type :District ;
+    :x "-50.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :isDistrictOf :UrbanTown05 .
+
+:residential_district rdf:type :District ;
+    :x "50.0"^^xsd:float ;
+    :y "80.0"^^xsd:float ;
+    :isDistrictOf :UrbanTown05 .
+
+:highway_district rdf:type :District ;
+    :x "150.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :isDistrictOf :UrbanTown05 .
+
+# ============================================================
+# Zones (analogous to Room) — 25 zones
+# ============================================================
+
+# --- Urban District: intersections + lane segments ---
+:intersection_1 rdf:type :Intersection ;
+    :x "-80.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :speedLimit "50"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+:intersection_2 rdf:type :Intersection ;
+    :x "-40.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :speedLimit "50"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+:intersection_3 rdf:type :Intersection ;
+    :x "-40.0"^^xsd:float ;
+    :y "-30.0"^^xsd:float ;
+    :speedLimit "40"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+:urban_road_1 rdf:type :LaneSegment ;
+    :x "-60.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :speedLimit "50"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+:urban_road_2 rdf:type :LaneSegment ;
+    :x "-40.0"^^xsd:float ;
+    :y "-10.0"^^xsd:float ;
+    :speedLimit "50"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+:urban_road_3 rdf:type :LaneSegment ;
+    :x "-20.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :speedLimit "50"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+:urban_road_4 rdf:type :LaneSegment ;
+    :x "-80.0"^^xsd:float ;
+    :y "-10.0"^^xsd:float ;
+    :speedLimit "40"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+:parking_area_1 rdf:type :ParkingArea ;
+    :x "-70.0"^^xsd:float ;
+    :y "-20.0"^^xsd:float ;
+    :speedLimit "15"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+# --- Residential District: school zone + side roads ---
+:school_zone_1 rdf:type :SchoolZone ;
+    :x "30.0"^^xsd:float ;
+    :y "90.0"^^xsd:float ;
+    :speedLimit "30"^^xsd:int ;
+    :isZoneOf :residential_district .
+
+:residential_road_1 rdf:type :LaneSegment ;
+    :x "50.0"^^xsd:float ;
+    :y "70.0"^^xsd:float ;
+    :speedLimit "40"^^xsd:int ;
+    :isZoneOf :residential_district .
+
+:residential_road_2 rdf:type :LaneSegment ;
+    :x "60.0"^^xsd:float ;
+    :y "90.0"^^xsd:float ;
+    :speedLimit "40"^^xsd:int ;
+    :isZoneOf :residential_district .
+
+:residential_road_3 rdf:type :LaneSegment ;
+    :x "40.0"^^xsd:float ;
+    :y "100.0"^^xsd:float ;
+    :speedLimit "30"^^xsd:int ;
+    :isZoneOf :residential_district .
+
+:intersection_4 rdf:type :Intersection ;
+    :x "50.0"^^xsd:float ;
+    :y "90.0"^^xsd:float ;
+    :speedLimit "30"^^xsd:int ;
+    :isZoneOf :residential_district .
+
+:parking_area_2 rdf:type :ParkingArea ;
+    :x "70.0"^^xsd:float ;
+    :y "85.0"^^xsd:float ;
+    :speedLimit "15"^^xsd:int ;
+    :isZoneOf :residential_district .
+
+# --- Highway District: highway sections + merge ---
+:highway_section_1 rdf:type :HighwaySection ;
+    :x "120.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :speedLimit "90"^^xsd:int ;
+    :isZoneOf :highway_district .
+
+:highway_section_2 rdf:type :HighwaySection ;
+    :x "160.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :speedLimit "90"^^xsd:int ;
+    :isZoneOf :highway_district .
+
+:highway_section_3 rdf:type :HighwaySection ;
+    :x "200.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :speedLimit "100"^^xsd:int ;
+    :isZoneOf :highway_district .
+
+:merge_zone_1 rdf:type :MergeZone ;
+    :x "140.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :speedLimit "60"^^xsd:int ;
+    :isZoneOf :highway_district .
+
+:merge_zone_2 rdf:type :MergeZone ;
+    :x "180.0"^^xsd:float ;
+    :y "-5.0"^^xsd:float ;
+    :speedLimit "70"^^xsd:int ;
+    :isZoneOf :highway_district .
+
+:highway_road_1 rdf:type :LaneSegment ;
+    :x "100.0"^^xsd:float ;
+    :y "5.0"^^xsd:float ;
+    :speedLimit "80"^^xsd:int ;
+    :isZoneOf :highway_district .
+
+:highway_road_2 rdf:type :LaneSegment ;
+    :x "210.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :speedLimit "100"^^xsd:int ;
+    :isZoneOf :highway_district .
+
+# Additional zones
+:side_road_1 rdf:type :LaneSegment ;
+    :x "-30.0"^^xsd:float ;
+    :y "-20.0"^^xsd:float ;
+    :speedLimit "30"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+:wet_road_section_1 rdf:type :LaneSegment ;
+    :x "70.0"^^xsd:float ;
+    :y "75.0"^^xsd:float ;
+    :speedLimit "30"^^xsd:int ;
+    :isZoneOf :residential_district .
+
+:construction_zone_1 rdf:type :LaneSegment ;
+    :x "-60.0"^^xsd:float ;
+    :y "-15.0"^^xsd:float ;
+    :speedLimit "20"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+:bus_lane_1 rdf:type :LaneSegment ;
+    :x "-50.0"^^xsd:float ;
+    :y "15.0"^^xsd:float ;
+    :speedLimit "50"^^xsd:int ;
+    :isZoneOf :urban_district .
+
+# ============================================================
+# Connections (analogous to Door/Opening/Stairs)
+# ============================================================
+
+# Urban connections
+:conn_1 rdf:type :LaneConnection ;
+    :x "-70.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :intersection_1 ;
+    :isConnectionOf :urban_road_1 .
+
+:conn_2 rdf:type :LaneConnection ;
+    :x "-50.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :urban_road_1 ;
+    :isConnectionOf :intersection_2 .
+
+:conn_3 rdf:type :LaneConnection ;
+    :x "-40.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :intersection_2 ;
+    :isConnectionOf :urban_road_2 .
+
+:conn_4 rdf:type :LaneConnection ;
+    :x "-40.0"^^xsd:float ;
+    :y "-20.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :urban_road_2 ;
+    :isConnectionOf :intersection_3 .
+
+:conn_5 rdf:type :LaneConnection ;
+    :x "-30.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :intersection_2 ;
+    :isConnectionOf :urban_road_3 .
+
+:conn_6 rdf:type :LaneConnection ;
+    :x "-80.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :intersection_1 ;
+    :isConnectionOf :urban_road_4 .
+
+:conn_7 rdf:type :LaneConnection ;
+    :x "-75.0"^^xsd:float ;
+    :y "-15.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :urban_road_4 ;
+    :isConnectionOf :parking_area_1 .
+
+:conn_8 rdf:type :LaneConnection ;
+    :x "-35.0"^^xsd:float ;
+    :y "-25.0"^^xsd:float ;
+    :isOpen "false"^^xsd:boolean ;
+    :isConnectionOf :intersection_3 ;
+    :isConnectionOf :side_road_1 .
+
+:conn_9 rdf:type :LaneConnection ;
+    :x "-55.0"^^xsd:float ;
+    :y "-10.0"^^xsd:float ;
+    :isOpen "false"^^xsd:boolean ;
+    :isConnectionOf :urban_road_1 ;
+    :isConnectionOf :construction_zone_1 .
+
+# Residential connections
+:conn_10 rdf:type :LaneConnection ;
+    :x "40.0"^^xsd:float ;
+    :y "90.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :school_zone_1 ;
+    :isConnectionOf :intersection_4 .
+
+:conn_11 rdf:type :LaneConnection ;
+    :x "50.0"^^xsd:float ;
+    :y "80.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :intersection_4 ;
+    :isConnectionOf :residential_road_1 .
+
+:conn_12 rdf:type :LaneConnection ;
+    :x "55.0"^^xsd:float ;
+    :y "90.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :intersection_4 ;
+    :isConnectionOf :residential_road_2 .
+
+:conn_13 rdf:type :LaneConnection ;
+    :x "45.0"^^xsd:float ;
+    :y "95.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :intersection_4 ;
+    :isConnectionOf :residential_road_3 .
+
+:conn_14 rdf:type :LaneConnection ;
+    :x "65.0"^^xsd:float ;
+    :y "85.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :residential_road_2 ;
+    :isConnectionOf :parking_area_2 .
+
+# Highway connections
+:conn_15 rdf:type :IntersectionEntry ;
+    :x "110.0"^^xsd:float ;
+    :y "2.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :highway_road_1 ;
+    :isConnectionOf :highway_section_1 .
+
+:conn_16 rdf:type :IntersectionEntry ;
+    :x "135.0"^^xsd:float ;
+    :y "5.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :highway_section_1 ;
+    :isConnectionOf :merge_zone_1 .
+
+:conn_17 rdf:type :LaneConnection ;
+    :x "150.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :merge_zone_1 ;
+    :isConnectionOf :highway_section_2 .
+
+:conn_18 rdf:type :IntersectionEntry ;
+    :x "175.0"^^xsd:float ;
+    :y "-2.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :highway_section_2 ;
+    :isConnectionOf :merge_zone_2 .
+
+:conn_19 rdf:type :LaneConnection ;
+    :x "190.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :merge_zone_2 ;
+    :isConnectionOf :highway_section_3 .
+
+:conn_20 rdf:type :LaneConnection ;
+    :x "205.0"^^xsd:float ;
+    :y "0.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :highway_section_3 ;
+    :isConnectionOf :highway_road_2 .
+
+# Cross-district connections
+:conn_21 rdf:type :LaneConnection ;
+    :x "-10.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :urban_road_3 ;
+    :isConnectionOf :residential_road_1 .
+
+:conn_22 rdf:type :LaneConnection ;
+    :x "90.0"^^xsd:float ;
+    :y "5.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :residential_road_1 ;
+    :isConnectionOf :highway_road_1 .
+
+:conn_23 rdf:type :LaneConnection ;
+    :x "65.0"^^xsd:float ;
+    :y "77.0"^^xsd:float ;
+    :isOpen "true"^^xsd:boolean ;
+    :isConnectionOf :residential_road_1 ;
+    :isConnectionOf :wet_road_section_1 .
