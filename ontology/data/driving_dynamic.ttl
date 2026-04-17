@@ -1,0 +1,422 @@
+@prefix : <http://www.semanticweb.org/driving-ontology/2026/3#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================
+# Ego Vehicle
+# ============================================================
+:ego_car rdf:type :EgoVehicle ;
+    rdfs:comment "The autonomous ego vehicle, a mid-size sedan equipped with LiDAR, cameras, and radar. Currently traveling at 55 km/h on the urban road approaching intersection_1. The vehicle must make real-time decisions considering traffic signals, surrounding vehicles, pedestrians, and road conditions." ;
+    :x "-85.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :speed "55"^^xsd:int ;
+    :state "moving" ;
+    :inZone :urban_road_4 .
+
+# ============================================================
+# Vehicles (15 objects)
+# ============================================================
+:sedan_1 rdf:type :Car ;
+    rdfs:comment "A white sedan traveling at 48 km/h in the same lane as the ego vehicle, approximately 30m ahead. Brake lights are off, maintaining steady speed. No immediate threat but requires monitoring for sudden stops." ;
+    :x "-75.0"^^xsd:float ;
+    :y "10.5"^^xsd:float ;
+    :speed "48"^^xsd:int ;
+    :state "moving" ;
+    :inZone :urban_road_1 .
+
+:sedan_2 rdf:type :Car ;
+    rdfs:comment "A black sedan traveling at 52 km/h in the left lane, slightly ahead of ego. Driver appears distracted, weaving slightly. Common sense suggests maintaining extra following distance and being prepared for sudden lane changes." ;
+    :x "-72.0"^^xsd:float ;
+    :y "12.0"^^xsd:float ;
+    :speed "52"^^xsd:int ;
+    :state "moving" ;
+    :inZone :urban_road_1 .
+
+:sedan_3 rdf:type :Car ;
+    rdfs:comment "A silver sedan following the ego vehicle at approximately 15m distance, traveling at 58 km/h. This close following distance means emergency braking by the ego vehicle could cause a rear-end collision — a critical factor in dilemma zone decisions." ;
+    :x "-88.0"^^xsd:float ;
+    :y "9.8"^^xsd:float ;
+    :speed "58"^^xsd:int ;
+    :state "moving" ;
+    :inZone :urban_road_4 .
+
+:truck_4 rdf:type :Truck ;
+    rdfs:comment "A large delivery truck illegally parked in the right lane of urban_road_3, partially blocking traffic flow with hazard lights on. Its height blocks visibility of oncoming traffic. Passing requires temporary lane departure across the center line when oncoming lane is clear — a common-sense action that technically violates lane markings but is the standard safe response." ;
+    :x "-18.0"^^xsd:float ;
+    :y "9.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :isObstacle "true"^^xsd:boolean ;
+    :inZone :urban_road_3 .
+
+:truck_5 rdf:type :Truck ;
+    rdfs:comment "A heavy cargo truck traveling at 75 km/h in the right lane of the highway. Moving slower than surrounding traffic flow of ~95 km/h, creating a speed differential that forces lane changes by following vehicles." ;
+    :x "155.0"^^xsd:float ;
+    :y "-1.0"^^xsd:float ;
+    :speed "75"^^xsd:int ;
+    :state "moving" ;
+    :inZone :highway_section_2 .
+
+:bus_6 rdf:type :Bus ;
+    rdfs:comment "A city bus stopped at the bus stop near intersection_2, passengers boarding. The bus obscures the crosswalk behind it, making it impossible to see if pedestrians are crossing. Defensive driving requires extra caution when passing." ;
+    :x "-42.0"^^xsd:float ;
+    :y "14.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :inZone :bus_lane_1 .
+
+:bus_7 rdf:type :Bus ;
+    rdfs:comment "A school bus with flashing amber lights approaching the school zone. When it stops and extends the stop sign, all traffic in both directions must stop by law — a critical legal requirement." ;
+    :x "35.0"^^xsd:float ;
+    :y "88.0"^^xsd:float ;
+    :speed "25"^^xsd:int ;
+    :state "moving" ;
+    :inZone :school_zone_1 .
+
+:motorcycle_8 rdf:type :Motorcycle ;
+    rdfs:comment "A motorcycle lane-splitting between vehicles at intersection_2, traveling at 35 km/h. Motorcycles are harder to detect in mirrors and can appear suddenly in blind spots. Their small size means they are more vulnerable in collisions." ;
+    :x "-39.0"^^xsd:float ;
+    :y "11.0"^^xsd:float ;
+    :speed "35"^^xsd:int ;
+    :state "moving" ;
+    :inZone :intersection_2 .
+
+:bicycle_9 rdf:type :Bicycle ;
+    rdfs:comment "A cyclist riding at 18 km/h on the edge of the residential road near the school zone. Cyclists are vulnerable road users who may swerve unexpectedly to avoid road hazards. A minimum 1.5m passing distance is recommended by traffic safety guidelines." ;
+    :x "45.0"^^xsd:float ;
+    :y "92.0"^^xsd:float ;
+    :speed "18"^^xsd:int ;
+    :state "moving" ;
+    :inZone :school_zone_1 .
+
+:sedan_10 rdf:type :Car ;
+    rdfs:comment "A red sedan traveling at 95 km/h in the left lane of the highway where the speed limit is 90 km/h. All surrounding vehicles are traveling at similar speeds (93-97 km/h). Strictly following the speed limit here would create a dangerous speed differential, making the ego vehicle an obstacle. Common sense and defensive driving suggest matching traffic flow." ;
+    :x "165.0"^^xsd:float ;
+    :y "1.5"^^xsd:float ;
+    :speed "95"^^xsd:int ;
+    :state "moving" ;
+    :inZone :highway_section_2 .
+
+:sedan_11 rdf:type :Car ;
+    rdfs:comment "A blue sedan traveling at 93 km/h on the highway, adjacent to sedan_10. Part of the general traffic flow that exceeds the posted speed limit. This cluster of vehicles all exceeding the limit demonstrates the common phenomenon where traffic flow speed diverges from posted limits." ;
+    :x "163.0"^^xsd:float ;
+    :y "-0.5"^^xsd:float ;
+    :speed "93"^^xsd:int ;
+    :state "moving" ;
+    :inZone :highway_section_2 .
+
+:emergency_vehicle_12 rdf:type :EmergencyVehicle ;
+    rdfs:comment "An ambulance with sirens and lights active, approaching from behind at approximately 90 km/h on urban_road_1. All vehicles must yield and pull to the right side of the road. If at an intersection, vehicles should clear the intersection before stopping. This is a legal obligation with priority over normal traffic rules." ;
+    :x "-90.0"^^xsd:float ;
+    :y "11.0"^^xsd:float ;
+    :speed "90"^^xsd:int ;
+    :state "moving" ;
+    :inZone :urban_road_4 .
+
+:parked_car_13 rdf:type :ParkedVehicle ;
+    rdfs:comment "A legally parked grey sedan in parking_area_1. Doors could open at any time — the 'door zone' extends about 1m from the vehicle. Defensive driving requires maintaining distance when passing parked cars." ;
+    :x "-71.0"^^xsd:float ;
+    :y "-20.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :inZone :parking_area_1 .
+
+:parked_car_14 rdf:type :ParkedVehicle ;
+    rdfs:comment "A parked SUV in parking_area_2, near the residential intersection. The SUV's height blocks sightlines at the intersection corner, reducing visibility for vehicles and pedestrians approaching from the side street." ;
+    :x "69.0"^^xsd:float ;
+    :y "86.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :inZone :parking_area_2 .
+
+:sedan_15 rdf:type :Car ;
+    rdfs:comment "A green sedan entering the merge zone from the on-ramp at 55 km/h, attempting to merge into highway traffic flowing at 90+ km/h. The significant speed differential creates a dangerous merge situation that requires cooperative behavior from highway traffic." ;
+    :x "138.0"^^xsd:float ;
+    :y "12.0"^^xsd:float ;
+    :speed "55"^^xsd:int ;
+    :state "moving" ;
+    :inZone :merge_zone_1 .
+
+# ============================================================
+# Traffic Lights (8 objects)
+# ============================================================
+:traffic_light_1 rdf:type :TrafficLight ;
+    rdfs:comment "A traffic light at intersection_1 currently showing YELLOW. At the ego vehicle's current distance of ~30m and speed of 55 km/h, this is a classic dilemma zone situation: stopping requires hard braking (deceleration > 4m/s²) while the following vehicle (sedan_3) is only 15m behind. Common sense suggests proceeding through is safer than emergency braking, which risks a rear-end collision." ;
+    :x "-80.0"^^xsd:float ;
+    :y "12.0"^^xsd:float ;
+    :state "yellow" ;
+    :inZone :intersection_1 .
+
+:traffic_light_2 rdf:type :TrafficLight ;
+    rdfs:comment "A traffic light at intersection_2 currently showing GREEN. Remaining green time is approximately 8 seconds based on the cycle. Vehicles approaching should assess whether they can clear the intersection before the signal changes." ;
+    :x "-40.0"^^xsd:float ;
+    :y "12.0"^^xsd:float ;
+    :state "green" ;
+    :inZone :intersection_2 .
+
+:traffic_light_3 rdf:type :TrafficLight ;
+    rdfs:comment "A traffic light at intersection_3 currently showing RED. This intersection has a dedicated left-turn phase. The red phase has approximately 15 seconds remaining based on the pedestrian countdown timer visible across the intersection." ;
+    :x "-40.0"^^xsd:float ;
+    :y "-28.0"^^xsd:float ;
+    :state "red" ;
+    :inZone :intersection_3 .
+
+:traffic_light_4 rdf:type :TrafficLight ;
+    rdfs:comment "A traffic light at intersection_4 in the residential area currently showing GREEN. However, the school zone ahead means speeds must reduce to 30 km/h regardless of signal state. The presence of children near the crosswalk warrants extra vigilance even with a green light." ;
+    :x "50.0"^^xsd:float ;
+    :y "92.0"^^xsd:float ;
+    :state "green" ;
+    :inZone :intersection_4 .
+
+:traffic_light_5 rdf:type :TrafficLight ;
+    rdfs:comment "A pedestrian crossing signal at the school zone showing WALK for pedestrians. Vehicles must yield completely. Children may not follow predictable crossing patterns — they might run, stop mid-crossing, or return unexpectedly." ;
+    :x "32.0"^^xsd:float ;
+    :y "91.0"^^xsd:float ;
+    :state "red" ;
+    :inZone :school_zone_1 .
+
+:traffic_light_6 rdf:type :TrafficLight ;
+    rdfs:comment "A flashing yellow caution light at the entrance to the construction zone. This indicates reduced speed and construction workers may be present. Proceed with caution at the posted reduced speed." ;
+    :x "-58.0"^^xsd:float ;
+    :y "-13.0"^^xsd:float ;
+    :state "flashing_yellow" ;
+    :inZone :construction_zone_1 .
+
+:traffic_light_7 rdf:type :TrafficLight ;
+    rdfs:comment "A ramp metering signal at merge_zone_1 currently showing RED for ramp traffic. This controls the flow of vehicles entering the highway to prevent congestion. Vehicles on the ramp must wait for green before merging." ;
+    :x "137.0"^^xsd:float ;
+    :y "11.0"^^xsd:float ;
+    :state "red" ;
+    :inZone :merge_zone_1 .
+
+:traffic_light_8 rdf:type :TrafficLight ;
+    rdfs:comment "A highway overhead variable message sign showing '90' speed limit with a green arrow, indicating the lane is open. During incidents, this may change to a red X indicating lane closure." ;
+    :x "160.0"^^xsd:float ;
+    :y "3.0"^^xsd:float ;
+    :state "green" ;
+    :inZone :highway_section_2 .
+
+# ============================================================
+# Traffic Signs (10 objects)
+# ============================================================
+:speed_limit_sign_1 rdf:type :SpeedLimitSign ;
+    rdfs:comment "A speed limit sign showing 50 km/h at the entrance to the urban district. This is the default urban speed limit. Vehicles must reduce from highway speeds when entering this zone." ;
+    :x "-95.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :state "50" ;
+    :inZone :urban_road_4 .
+
+:speed_limit_sign_2 rdf:type :SpeedLimitSign ;
+    rdfs:comment "A speed limit sign showing 30 km/h at the school zone entrance. This reduced limit is in effect during school hours (7:30-16:30). Fines are doubled in school zones. The presence of children makes this limit especially critical for safety." ;
+    :x "28.0"^^xsd:float ;
+    :y "93.0"^^xsd:float ;
+    :state "30" ;
+    :inZone :school_zone_1 .
+
+:speed_limit_sign_3 rdf:type :SpeedLimitSign ;
+    rdfs:comment "A highway speed limit sign showing 90 km/h. However, actual traffic flow is consistently 93-97 km/h. This speed differential between posted limit and traffic flow creates a common driving dilemma where strict compliance may paradoxically reduce safety." ;
+    :x "118.0"^^xsd:float ;
+    :y "2.0"^^xsd:float ;
+    :state "90" ;
+    :inZone :highway_section_1 .
+
+:stop_sign_4 rdf:type :StopSign ;
+    rdfs:comment "A stop sign at the side road entrance to intersection_3. Vehicles must come to a complete stop before entering the main road. Visibility is limited due to parked vehicles and a building corner." ;
+    :x "-32.0"^^xsd:float ;
+    :y "-28.0"^^xsd:float ;
+    :state "active" ;
+    :inZone :side_road_1 .
+
+:yield_sign_5 rdf:type :YieldSign ;
+    rdfs:comment "A yield sign at merge_zone_1 for vehicles entering the highway from the on-ramp. Merging vehicles must yield to highway traffic but should also accelerate to match highway speed for safe merging." ;
+    :x "136.0"^^xsd:float ;
+    :y "13.0"^^xsd:float ;
+    :state "active" ;
+    :inZone :merge_zone_1 .
+
+:no_parking_sign_6 rdf:type :NoParkingSign ;
+    rdfs:comment "A no-parking sign on urban_road_3 where truck_4 is illegally parked. The sign clearly indicates parking is prohibited, yet the truck is parked with hazard lights on, likely for delivery. This is a common real-world scenario requiring vehicles to adapt despite the illegal obstruction." ;
+    :x "-19.0"^^xsd:float ;
+    :y "12.0"^^xsd:float ;
+    :state "active" ;
+    :inZone :urban_road_3 .
+
+:lane_merge_sign_7 rdf:type :LaneMergeSign ;
+    rdfs:comment "A lane merge ahead sign 200m before merge_zone_2. Warns drivers that the right lane will end and they must merge left. Early awareness and cooperative lane-change behavior is the safe response." ;
+    :x "170.0"^^xsd:float ;
+    :y "-3.0"^^xsd:float ;
+    :state "active" ;
+    :inZone :highway_section_2 .
+
+:school_zone_sign_8 rdf:type :SchoolZoneSign ;
+    rdfs:comment "A school zone warning sign with flashing amber lights indicating the zone is active. The sign includes a silhouette of children crossing. During active hours, this is one of the highest-priority zones requiring maximum caution and reduced speed." ;
+    :x "25.0"^^xsd:float ;
+    :y "88.0"^^xsd:float ;
+    :state "active" ;
+    :inZone :school_zone_1 .
+
+:construction_sign_9 rdf:type :TrafficSign ;
+    rdfs:comment "An orange construction zone ahead warning sign. Workers may be present on or near the roadway. Speed must be reduced and drivers must be prepared for unexpected lane shifts, flaggers, or equipment." ;
+    :x "-62.0"^^xsd:float ;
+    :y "-12.0"^^xsd:float ;
+    :state "active" ;
+    :inZone :construction_zone_1 .
+
+:speed_limit_sign_10 rdf:type :SpeedLimitSign ;
+    rdfs:comment "A variable speed limit sign on the highway currently showing 100 km/h. This electronic sign can be adjusted based on weather, traffic, and incidents. It represents the authoritative current speed limit for this section." ;
+    :x "198.0"^^xsd:float ;
+    :y "2.0"^^xsd:float ;
+    :state "100" ;
+    :inZone :highway_section_3 .
+
+# ============================================================
+# Pedestrians (5 objects)
+# ============================================================
+:pedestrian_1 rdf:type :AdultPedestrian ;
+    rdfs:comment "An adult pedestrian waiting at the crosswalk at intersection_2, standing on the curb. The pedestrian signal shows 'Don't Walk' but the person appears impatient and may attempt to jaywalk. Defensive driving requires monitoring pedestrian body language for intention cues." ;
+    :x "-41.0"^^xsd:float ;
+    :y "8.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "waiting" ;
+    :inZone :intersection_2 .
+
+:child_pedestrian_2 rdf:type :ChildPedestrian ;
+    rdfs:comment "A child (approximately 8 years old) crossing the road at the school zone crosswalk with a crossing guard present. Children are unpredictable — they may suddenly run, stop, or change direction. The child is the most vulnerable road user in this scene and demands the highest level of caution regardless of signal state." ;
+    :x "31.0"^^xsd:float ;
+    :y "90.0"^^xsd:float ;
+    :speed "4"^^xsd:int ;
+    :state "crossing" ;
+    :inZone :school_zone_1 .
+
+:elderly_pedestrian_3 rdf:type :ElderlyPedestrian ;
+    rdfs:comment "An elderly person with a walking cane crossing slowly at intersection_3. The pedestrian signal shows 'Walk' but the person's slow pace (approximately 0.8 m/s) means they may not clear the crosswalk before the signal changes. Drivers should anticipate extended crossing time and yield patiently." ;
+    :x "-39.0"^^xsd:float ;
+    :y "-31.0"^^xsd:float ;
+    :speed "3"^^xsd:int ;
+    :state "crossing" ;
+    :inZone :intersection_3 .
+
+:pedestrian_4 rdf:type :AdultPedestrian ;
+    rdfs:comment "A jogger running along the residential road shoulder at approximately 10 km/h. The jogger is wearing dark clothing with no reflective elements, making visibility poor in low-light conditions. Extra caution is needed when passing." ;
+    :x "52.0"^^xsd:float ;
+    :y "71.0"^^xsd:float ;
+    :speed "10"^^xsd:int ;
+    :state "moving" ;
+    :inZone :residential_road_1 .
+
+:child_pedestrian_5 rdf:type :ChildPedestrian ;
+    rdfs:comment "A group of three children walking on the sidewalk near the school zone, one child occasionally stepping onto the road edge. Children in groups are even more unpredictable than individuals — they may chase each other or be distracted by play. This requires maximum vigilance and readiness to stop." ;
+    :x "33.0"^^xsd:float ;
+    :y "87.0"^^xsd:float ;
+    :speed "5"^^xsd:int ;
+    :state "moving" ;
+    :inZone :school_zone_1 .
+
+# ============================================================
+# Obstacles (5 objects)
+# ============================================================
+:construction_cone_1 rdf:type :ConstructionCone ;
+    rdfs:comment "Orange traffic cones forming a lane closure barrier in the construction zone. The cones redirect traffic from the right lane to the left lane. Some cones are slightly displaced, making the lane boundary ambiguous." ;
+    :x "-58.0"^^xsd:float ;
+    :y "-16.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :isObstacle "true"^^xsd:boolean ;
+    :inZone :construction_zone_1 .
+
+:construction_cone_2 rdf:type :ConstructionCone ;
+    rdfs:comment "A row of construction cones with reflective tape at the end of construction_zone_1, marking the point where the lane reopens. At night, these cones provide the only visual guidance for lane transition." ;
+    :x "-55.0"^^xsd:float ;
+    :y "-18.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :isObstacle "true"^^xsd:boolean ;
+    :inZone :construction_zone_1 .
+
+:debris_3 rdf:type :Debris ;
+    rdfs:comment "Scattered road debris (fallen tree branch and leaves) on the wet residential road after recent rain. The debris is dark-colored and blends with the wet road surface, making it difficult to see, especially at night. Running over it could cause tire damage or loss of control on the already slippery surface." ;
+    :x "72.0"^^xsd:float ;
+    :y "76.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :isObstacle "true"^^xsd:boolean ;
+    :inZone :wet_road_section_1 .
+
+:debris_4 rdf:type :Debris ;
+    rdfs:comment "A large cardboard box that has fallen from a delivery truck onto the highway right lane. At highway speeds, this requires immediate lane change to avoid. The box may contain heavy items, making impact potentially dangerous." ;
+    :x "170.0"^^xsd:float ;
+    :y "-1.5"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :isObstacle "true"^^xsd:boolean ;
+    :inZone :highway_section_2 .
+
+:construction_cone_3 rdf:type :ConstructionCone ;
+    rdfs:comment "Temporary construction cones placed around a pothole repair site on urban_road_2. The repair crew is not currently present, but the cones remain to warn drivers of the uneven road surface." ;
+    :x "-38.0"^^xsd:float ;
+    :y "-12.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :isObstacle "true"^^xsd:boolean ;
+    :inZone :urban_road_2 .
+
+# ============================================================
+# Infrastructure (7 objects)
+# ============================================================
+:guardrail_1 rdf:type :Guardrail ;
+    rdfs:comment "A W-beam metal guardrail along the highway median, separating opposing traffic flows. In case of loss of control, the guardrail prevents cross-median crashes but impact with it at highway speeds can still cause significant damage. It provides a psychological sense of safety that enables higher speed driving." ;
+    :x "160.0"^^xsd:float ;
+    :y "4.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :inZone :highway_section_2 .
+
+:guardrail_2 rdf:type :Guardrail ;
+    rdfs:comment "A concrete barrier guardrail on the highway shoulder near merge_zone_2. This barrier prevents vehicles from leaving the roadway at this curve section. The barrier height is designed to redirect passenger vehicles but may not effectively contain large trucks." ;
+    :x "182.0"^^xsd:float ;
+    :y "-7.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :inZone :merge_zone_2 .
+
+:crosswalk_1 rdf:type :Crosswalk ;
+    rdfs:comment "A zebra-striped pedestrian crosswalk at intersection_2 with embedded LED warning lights. Currently, the bus (bus_6) stopped nearby blocks the view of this crosswalk from approaching vehicles. This hidden crosswalk situation is one of the most dangerous pedestrian scenarios — vehicles must slow and check before passing the bus." ;
+    :x "-40.0"^^xsd:float ;
+    :y "8.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "active" ;
+    :inZone :intersection_2 .
+
+:crosswalk_2 rdf:type :Crosswalk ;
+    rdfs:comment "A school zone crosswalk with raised pavement markers and a crossing guard currently present. The crosswalk is painted with bright yellow lines and has 'SCHOOL' written on the road surface. Currently being used by child_pedestrian_2. This is the highest-priority crosswalk in the scene." ;
+    :x "31.0"^^xsd:float ;
+    :y "90.5"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "active" ;
+    :inZone :school_zone_1 .
+
+:bus_stop_1 rdf:type :BusStop ;
+    rdfs:comment "A bus stop shelter near intersection_2 where bus_6 is currently stopped. The shelter partially obscures pedestrians who may step out into the road. Bus stops are high-risk areas for pedestrian-vehicle conflicts because pedestrians often rush to catch departing buses." ;
+    :x "-43.0"^^xsd:float ;
+    :y "15.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "active" ;
+    :inZone :bus_lane_1 .
+
+:bus_stop_2 rdf:type :BusStop ;
+    rdfs:comment "A bus stop in the residential area near the school zone. During school hours, this stop is heavily used by students. The stop lacks a proper shelter, so waiting passengers sometimes stand on the road edge." ;
+    :x "48.0"^^xsd:float ;
+    :y "94.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "active" ;
+    :inZone :residential_road_3 .
+
+:median_1 rdf:type :Median ;
+    rdfs:comment "A raised concrete median dividing urban_road_1 into two directions. The median has a gap at intersection_1 allowing left turns. The gap width is designed for passenger vehicles but large trucks may have difficulty making the turn." ;
+    :x "-60.0"^^xsd:float ;
+    :y "10.0"^^xsd:float ;
+    :speed "0"^^xsd:int ;
+    :state "stationary" ;
+    :inZone :urban_road_1 .
