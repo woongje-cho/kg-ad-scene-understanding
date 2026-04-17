@@ -1,0 +1,13 @@
+# Core dependencies
+owlready2>=0.46
+neo4j>=5.0.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.0.0
+
+# OpenAI API for embeddings
+openai>=1.0.0
+python-dotenv>=1.0.0
+
+# Additional utilities
+numpy>=1.24.0
