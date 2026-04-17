@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "description": "Expert ground truth for 30 driving scene queries (rebalanced: 3/3/7/3/7/7)",
+    "scoring": "1-5 rubric: 5=all key points+correct reasoning, 4=most key points, 3=core correct with gaps, 2=partial+errors, 1=incorrect/irrelevant",
+    "rationale": "In real AD systems, LLM API latency is unacceptable for safety-critical decisions. The scene representation must self-contain all needed information. Queries weighted toward semantic/safety/dilemma to test representation completeness for decision-making."
+  },
+  "queries": [
+    {
+      "id": 1, "category": "spatial",
+      "question": "Where is the ego vehicle currently located? What type of zone is it in?",
+      "key_points": ["Ego is on urban_road_4 (a lane segment)", "Position approximately (-85, 10)", "Part of the urban district", "Approaching intersection_1"],
+      "scoring_note": "Full credit requires zone type + district + spatial context"
+    },
+    {
+      "id": 2, "category": "spatial",
+      "question": "What objects are within 50m of the ego vehicle? List them with approximate distances.",
+      "key_points": ["sedan_3: ~15m behind", "emergency_vehicle_12: ~5m behind", "traffic_light_1: ~30m ahead at intersection", "sedan_1 and sedan_2: ~30m ahead in urban_road_1", "speed_limit_sign_1: ~10m"],
+      "scoring_note": "Must identify at least 4 nearby objects with reasonable distances"
+    },
+    {
+      "id": 3, "category": "spatial",
+      "question": "Describe the spatial layout around intersection_2. What zones connect to it and what objects are there?",
+      "key_points": ["Connected zones: urban_road_1, urban_road_2, urban_road_3, bus_lane_1", "Objects present: motorcycle_8, pedestrian_1, crosswalk_1, traffic_light_2", "bus_6 at adjacent bus_stop_1 in bus_lane_1", "Traffic light showing green"],
+      "scoring_note": "Must describe both connectivity and objects"
+    },
+    {
+      "id": 4, "category": "identification",
+      "question": "How many vehicles are in the scene? List their types and current states.",
+      "key_points": ["16 vehicles total (1 ego + 15 others)", "Types: sedans, trucks, buses, motorcycle, bicycle, emergency, parked vehicles", "States: moving (10+), stationary (4: truck_4, bus_6, parked_car_13, parked_car_14)", "Speed range from 0 to 95 km/h"],
+      "scoring_note": "Must have approximate count, type breakdown, and state summary"
+    },
+    {
+      "id": 5, "category": "identification",
+      "question": "What is the current state of traffic_light_1 and what does its position imply?",
+      "key_points": ["Currently showing YELLOW", "Located at intersection_1", "Facing east (ego vehicle's direction of travel)", "Ego vehicle is approaching at ~30m distance"],
+      "scoring_note": "Must identify yellow state and location context"
+    },
+    {
+      "id": 6, "category": "identification",
+      "question": "List all pedestrians in the scene. Assess which ones may be about to cross the road based on observable cues.",
+      "key_points": ["pedestrian_1: standing at curb of intersection_2, facing road — may be about to cross", "child_pedestrian_2: actively crossing at school_zone_1 crosswalk", "elderly_pedestrian_3: actively crossing at intersection_3, slow speed (3 km/h)", "pedestrian_4: jogging on road shoulder, residential_road_1", "child_pedestrian_5: group of 3 children on sidewalk edge near school_zone_1"],
+      "scoring_note": "Must identify all 5 and note crossing status/intent for at least 3"
+    },
+    {
+      "id": 7, "category": "semantic",
+      "question": "What does the yellow light at intersection_1 mean for the ego vehicle approaching at 55 km/h?",
+      "key_points": ["Yellow means signal is about to turn red", "At 55 km/h and ~30m distance, stopping requires significant braking force", "Stopping distance at 55 km/h is approximately 35-40m (reaction + braking)", "May be in the dilemma zone where neither stopping nor proceeding is clearly safe", "sedan_3 following at 15m behind affects braking decision"],
+      "scoring_note": "KG has dilemma zone description in rdfs:comment; 3DSG has signal=yellow and speed/distance but no dilemma zone concept"
+    },
+    {
+      "id": 8, "category": "semantic",
+      "question": "Why is truck_4 a potential hazard? What specific risks does it create?",
+      "key_points": ["Illegally parked (no_parking_sign nearby) blocking right lane", "Large size (8m long, 3.5m tall) blocks visibility of oncoming traffic", "Forces other vehicles to change lanes or cross center line to pass", "Hazard lights indicate temporary stop but unclear duration", "Height blocks sightlines for vehicles behind it"],
+      "scoring_note": "KG describes lane departure necessity and visibility blockage; 3DSG has size and stationary state but not the behavioral implications"
+    },
+    {
+      "id": 9, "category": "semantic",
+      "question": "What traffic rules and safety concerns apply in school_zone_1 right now?",
+      "key_points": ["Speed limit 30 km/h (posted on speed_limit_sign_2)", "School zone sign with active flashing amber lights", "Children present and actively crossing (child_pedestrian_2 on crosswalk)", "Group of children near sidewalk edge (child_pedestrian_5) — unpredictable movement", "School bus approaching (bus_7) with flashing amber — may require full stop when it stops", "Doubled fines in school zones"],
+      "scoring_note": "KG has descriptions about child unpredictability and legal obligations; 3DSG has signs and pedestrian states but no behavioral/legal context"
+    },
+    {
+      "id": 10, "category": "semantic",
+      "question": "Explain the relationship between sedan_3's speed (58 km/h) and safe following distance behind the ego vehicle.",
+      "key_points": ["sedan_3 at 58 km/h is 15m behind ego at 55 km/h (closing speed ~3 km/h)", "Safe following distance at 58 km/h should be ~32m (2-second rule)", "Current 15m gap is dangerously short — roughly 0.9 seconds", "If ego brakes suddenly, rear-end collision is likely", "This tailgating affects ego's ability to make emergency stops"],
+      "scoring_note": "KG describes rear-end collision risk explicitly; 3DSG has speed and position but LLM must infer safety implications without context guidance"
+    },
+    {
+      "id": 11, "category": "semantic",
+      "question": "What is the significance of the closed connection between intersection_3 and side_road_1?",
+      "key_points": ["Connection is marked as closed/not open", "Traffic cannot pass between intersection_3 and side_road_1", "Vehicles on side_road_1 cannot enter intersection_3", "May be due to construction, accident, or traffic control", "Affects route planning — alternative routes needed"],
+      "scoring_note": "KG has explicit isOpen=false; 3DSG has connected_zones list but no open/closed status"
+    },
+    {
+      "id": 12, "category": "semantic",
+      "question": "What does the flashing yellow signal at construction_zone_1 mean and what precautions are needed?",
+      "key_points": ["traffic_light_6 shows flashing_yellow at construction_zone_1", "Indicates caution — reduced speed required (zone limit 20 km/h)", "Construction workers may be present on or near roadway", "Lane shifts or unexpected obstacles possible", "Construction cones (cone_1, cone_2) mark lane closures — some displaced making boundaries ambiguous"],
+      "scoring_note": "KG describes worker presence risk and lane ambiguity; 3DSG has signal state and cone positions but no construction context"
+    },
+    {
+      "id": 13, "category": "semantic",
+      "question": "Why does the ramp meter (traffic_light_7) showing red matter for vehicles at merge_zone_1?",
+      "key_points": ["traffic_light_7 is a ramp metering signal currently red", "Ramp vehicles (sedan_15) must wait before merging", "Controls flow to prevent highway congestion", "sedan_15 is currently at 55 km/h — large gap vs 90+ km/h highway traffic", "yield_sign_5 reinforces yield obligation for ramp traffic", "Ignoring red ramp meter creates dangerous speed-differential merge"],
+      "scoring_note": "KG explains ramp metering purpose and congestion control; 3DSG has signal=red but not what ramp_meter type means"
+    },
+    {
+      "id": 14, "category": "hierarchy",
+      "question": "What types of traffic control devices are present? How would you categorize them?",
+      "key_points": ["Traffic lights: 8 (intersection signals, pedestrian crossing, ramp meter, VMS)", "Traffic signs: 10 (speed limit x4, stop, yield, no parking, lane merge, school zone, construction)", "Two main categories: signals (dynamic) and signs (static)", "Sub-categorization: regulatory, warning, informational"],
+      "scoring_note": "KG has TrafficControl→TrafficLight/TrafficSign ontology; 3DSG lists by class name only"
+    },
+    {
+      "id": 15, "category": "hierarchy",
+      "question": "Is a crosswalk considered infrastructure? What does that classification imply?",
+      "key_points": ["Yes, crosswalks are infrastructure (fixed road elements)", "Infrastructure = permanent, predictable features", "Crosswalks imply pedestrian priority — vehicles must yield", "Different from dynamic objects (vehicles, pedestrians) that move"],
+      "scoring_note": "KG has explicit Crosswalk→Infrastructure→Object hierarchy; 3DSG has class name only"
+    },
+    {
+      "id": 16, "category": "hierarchy",
+      "question": "What zone types exist in the scene and how do they differ in risk level?",
+      "key_points": ["Zone types: intersection(4), lane_segment(11), highway_section(3), merge_zone(2), school_zone(1), parking_area(2)", "Highest risk: school_zone, intersections", "Medium risk: merge_zones, construction_zone", "Lower risk: highway_sections, parking_areas", "Risk tied to speed limits, object density, vulnerable road users"],
+      "scoring_note": "KG has Zone subclass hierarchy; 3DSG has type field but no risk semantics"
+    },
+    {
+      "id": 17, "category": "safety",
+      "question": "Should the ego vehicle brake or proceed at the yellow light at intersection_1? Consider all factors.",
+      "key_points": ["Yellow light at intersection_1, ego at 55 km/h, ~30m away", "Stopping distance at 55 km/h ≈ 35-40m (exceeds distance for comfortable stop)", "sedan_3 following at 15m, 58 km/h — hard braking risks rear-end collision", "emergency_vehicle_12 behind at 5m — must consider yielding", "RECOMMENDATION: Proceed through is safer", "After clearing intersection, yield to emergency vehicle"],
+      "scoring_note": "Flagship safety question. KG has dilemma zone analysis in descriptions; 3DSG has raw data only"
+    },
+    {
+      "id": 18, "category": "safety",
+      "question": "Assess the pedestrian risk near bus_6 at intersection_2.",
+      "key_points": ["bus_6 stopped at bus_stop blocks view of crosswalk_1 behind it", "pedestrian_1 standing at curb facing road — potential to step out", "motorcycle_8 lane-splitting at 35 km/h approaching", "traffic_light_2 is green — vehicles may not expect pedestrians", "Hidden pedestrian behind bus is a classic accident pattern"],
+      "scoring_note": "KG describes bus-occlusion danger pattern; 3DSG has 'adjacent_blocking_view' edge but no accident pattern knowledge"
+    },
+    {
+      "id": 19, "category": "safety",
+      "question": "What makes the school zone more dangerous than a regular intersection right now?",
+      "key_points": ["Active child crossing (child_pedestrian_2 on crosswalk)", "Group of 3 children on sidewalk edge (child_pedestrian_5) — unpredictable", "School bus approaching with amber lights (bus_7)", "Cyclist on road edge (bicycle_9)", "Lower speed limit but multiple simultaneous hazards", "Children are the most unpredictable road users"],
+      "scoring_note": "KG describes child unpredictability and behavioral patterns; 3DSG identifies objects but cannot characterize unpredictability"
+    },
+    {
+      "id": 20, "category": "safety",
+      "question": "How should the ego vehicle handle debris_3 on the wet residential road?",
+      "key_points": ["debris_3 is dark-colored wood/leaves on wet road — poor visibility", "Located in wet_road_section_1 (reduced traction)", "Speed limit 30 km/h", "Options: slow down, change lane if safe, avoid", "Running over debris on wet road risks loss of control", "Check mirrors — pedestrian_4 jogging nearby"],
+      "scoring_note": "KG describes wet+dark=visibility issue; 3DSG has material=wood_leaves and zone name but no traction/visibility reasoning"
+    },
+    {
+      "id": 21, "category": "safety",
+      "question": "What danger does sedan_2's weaving behavior pose to surrounding traffic?",
+      "key_points": ["sedan_2 has slight lateral weaving in left lane at 52 km/h", "May indicate distracted or impaired driver", "Risk of sudden lane change into ego's path or sedan_1's lane", "Nearby vehicles should maintain extra following distance", "Weaving combined with speed creates unpredictable trajectory"],
+      "scoring_note": "KG describes driver distraction and lane-change risk; 3DSG has lateral_deviation=slight_weaving but no behavioral inference"
+    },
+    {
+      "id": 22, "category": "safety",
+      "question": "Assess the risk posed by the elderly pedestrian at intersection_3.",
+      "key_points": ["elderly_pedestrian_3 crossing at 3 km/h (~0.8 m/s) with walking cane", "Pedestrian signal shows Walk but slow pace may not clear before signal changes", "intersection_3 has 40 km/h speed limit", "Connection to side_road_1 is closed — reduced traffic but still risk from urban_road_2", "Drivers must anticipate extended crossing time and yield patiently"],
+      "scoring_note": "KG describes slow crossing speed risk and signal timing concern; 3DSG has speed=3 and walking_aid=cane but no crossing-time analysis"
+    },
+    {
+      "id": 23, "category": "safety",
+      "question": "Rate the overall safety risk of the current driving scene (1-10) with justification.",
+      "key_points": ["Rating should be 7-9 (high risk)", "Multiple simultaneous hazards: yellow light dilemma, emergency vehicle, school zone children, illegally parked truck, highway speed differential", "Diverse hazard types: signal timing, vulnerable road users, obstructions, speed conflicts", "At least 3 separate dilemma situations", "Multiple zones requiring different driving strategies simultaneously"],
+      "scoring_note": "Requires scene-wide synthesis. KG provides rich context per object; 3DSG requires aggregating sparse attributes"
+    },
+    {
+      "id": 24, "category": "dilemma",
+      "question": "Describe all contributing factors in the yellow light dilemma at intersection_1 and recommend an action.",
+      "key_points": ["Signal: traffic_light_1 = yellow", "Ego speed: 55 km/h, distance ~30m", "Stopping distance: ~35-40m (cannot stop comfortably)", "Following vehicle: sedan_3 at 15m, 58 km/h — rear-end risk", "Emergency vehicle: emergency_vehicle_12 at 5m behind, sirens active", "Physics: deceleration > 4 m/s² needed (unsafe)", "RECOMMENDATION: Proceed through, then yield to emergency vehicle"],
+      "scoring_note": "Flagship dilemma. KG has full dilemma zone analysis in descriptions; 3DSG has numeric data only"
+    },
+    {
+      "id": 25, "category": "dilemma",
+      "question": "Should the ego vehicle exceed the posted 90 km/h speed limit on the highway to match the 95 km/h traffic flow?",
+      "key_points": ["Posted limit: 90 km/h (speed_limit_sign_3)", "Actual flow: 93-97 km/h (sedan_10=95, sedan_11=93)", "Going slower creates speed differential — forces others to change lanes", "Speed differential is a major highway accident risk factor", "truck_5 at 75 km/h already creating issues", "Practical: match flow (~93 km/h) safer than strict compliance", "Legal vs safety trade-off"],
+      "scoring_note": "KG describes speed-flow divergence phenomenon; 3DSG has speeds but no flow-safety reasoning"
+    },
+    {
+      "id": 26, "category": "dilemma",
+      "question": "How should a vehicle safely pass the illegally parked truck_4 on urban_road_3?",
+      "key_points": ["truck_4 blocks right lane — must use oncoming lane", "Truck height (3.5m) blocks visibility of oncoming traffic", "no_parking_sign confirms illegal parking", "Must wait for clear oncoming lane before passing", "Requires crossing center line — technically a violation but standard practice", "Check mirrors for following traffic before slowing"],
+      "scoring_note": "KG explains 'legal violation for safety' convention; 3DSG has size and blocking state but no social driving convention"
+    },
+    {
+      "id": 27, "category": "dilemma",
+      "question": "Assess the multi-agent risk at intersection_2 considering the bus, pedestrian, motorcycle, and crosswalk.",
+      "key_points": ["bus_6 stopped at bus_stop — blocks view of crosswalk_1", "pedestrian_1 at curb — may step into road hidden behind bus", "motorcycle_8 lane-splitting at 35 km/h — hard to detect", "crosswalk_1 has LED lights but view blocked by bus", "traffic_light_2 green — false sense of safety", "Interaction: motorcycle passing bus could hit pedestrian", "Multiple agents with conflicting trajectories and occlusion"],
+      "scoring_note": "KG describes occlusion chain and accident pattern; 3DSG has blocking_view edge but no interaction chain reasoning"
+    },
+    {
+      "id": 28, "category": "dilemma",
+      "question": "Describe the cooperation needed for safe merging at merge_zone_1.",
+      "key_points": ["sedan_15 from on-ramp at 55 km/h", "Highway traffic at 90+ km/h — 35+ km/h speed differential", "yield_sign_5: ramp must yield", "traffic_light_7 (ramp meter) red — must wait", "Highway vehicles should create gap (cooperative behavior)", "sedan_15 needs significant acceleration to match highway speed", "Guardrail limits escape options if merge fails"],
+      "scoring_note": "KG describes cooperative driving need and ramp metering; 3DSG has speeds and signs but no cooperative behavior concept"
+    },
+    {
+      "id": 29, "category": "dilemma",
+      "question": "Should the ego vehicle yield to emergency_vehicle_12 immediately or after clearing the intersection?",
+      "key_points": ["emergency_vehicle_12 at 5m behind with active sirens at 90 km/h", "Legal obligation to yield to emergency vehicles", "But ego is 30m from yellow-light intersection — stopping here blocks intersection", "Best action: proceed through intersection first, then pull right and yield", "Stopping in intersection would block emergency vehicle AND cross traffic", "Must balance yield obligation with intersection safety"],
+      "scoring_note": "KG describes legal priority and intersection clearance reasoning; 3DSG has emergency signals active but no legal/tactical reasoning"
+    },
+    {
+      "id": 30, "category": "dilemma",
+      "question": "How should the ego handle the school bus (bus_7) that may stop and extend its stop sign soon?",
+      "key_points": ["bus_7 approaching school_zone_1 at 25 km/h with flashing amber lights", "When school bus stops and extends stop sign, ALL traffic in both directions must stop by law", "Children may exit bus and cross road unpredictably", "Ego should prepare to stop completely if bus signals", "Currently bus is still moving — watch for brake lights and stop sign extension", "Even after bus resumes, children may still be near road"],
+      "scoring_note": "KG describes legal stop requirement and child behavior risk; 3DSG has bus speed and flashing_lights=amber but no school bus stop law"
+    }
+  ]
+}
